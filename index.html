@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GeoLab 7 — Áreas y Volúmenes</title>
+<style>
+:root{--ink:#14213d;--muted:#667085;--bg:#f6f8fc;--card:#fff;--line:#e5e7eb;--accent:#315efb;--accent2:#7c3aed;--good:#159947;--warn:#d97706;--bad:#dc2626;--shadow:0 12px 35px rgba(20,33,61,.09)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{display:flex;min-height:100vh}
+aside{width:245px;background:#101b33;color:#dbe5ff;padding:22px 15px;position:fixed;inset:0 auto 0 0;z-index:20}
+.logo{display:flex;gap:11px;align-items:center;padding:8px 10px 25px;font-weight:800;font-size:20px;color:#fff}.logo span{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:#fff;color:#315efb}
+.nav button{width:100%;background:transparent;color:#b9c5df;text-align:left;padding:12px 13px;border-radius:10px;margin:2px 0;font-weight:650}.nav button.active,.nav button:hover{background:#1e2b4c;color:#fff}
+.side-card{margin-top:25px;padding:14px;border:1px solid #2a3859;border-radius:13px;background:#172440}.side-card small{color:#93a3c7}.side-card strong{display:block;color:#fff;margin:4px 0 10px}.mini-bar,.bar{height:8px;background:#e9edf5;border-radius:99px;overflow:hidden}.mini-bar i,.bar i{display:block;height:100%;background:linear-gradient(90deg,#315efb,#7c3aed);border-radius:99px}
+main{margin-left:245px;width:calc(100% - 245px);padding:30px 38px 55px;max-width:1450px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.crumb{color:var(--muted);font-size:14px}.profile{display:flex;gap:10px;align-items:center}.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#e8edff;color:#315efb;font-weight:800}
+.page{display:none}.page.active{display:block}.hero{background:linear-gradient(120deg,#173a8f,#315efb 55%,#7c3aed);color:#fff;border-radius:24px;padding:35px;display:grid;grid-template-columns:1.5fr 1fr;gap:25px;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:300px;height:300px;border:55px solid rgba(255,255,255,.08);border-radius:50%;right:-80px;top:-120px}.hero h1{font-size:clamp(28px,4vw,48px);margin:5px 0 10px}.hero p{max-width:680px;color:#e7ecff;font-size:17px}.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{padding:11px 17px;border-radius:10px;font-weight:750;background:#fff;color:#183b91}.btn.dark{background:#17233e;color:#fff}.btn.outline{background:transparent;color:#fff;border:1px solid #ffffff55}.hero-art{display:grid;place-items:center;min-height:190px}.cube3{width:135px;height:135px;position:relative;transform:rotate(-30deg) skew(8deg);background:#b9c8ff;box-shadow:30px 20px 0 #6f83df}.cube3:before{content:"";position:absolute;inset:-28px 28px 28px -28px;background:#d9e1ff}.cube3:after{content:"V = largo × ancho × alto";position:absolute;left:-65px;bottom:-60px;transform:skew(-8deg) rotate(30deg);background:#fff;color:#183b91;padding:9px 12px;border-radius:9px;font-weight:800;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:20px 0}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.stat{padding:17px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:25px;margin-top:4px}.section-head{display:flex;justify-content:space-between;align-items:end;margin:28px 0 14px}.section-head h2{margin:0;font-size:24px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card{padding:20px}.card h3{margin:0 0 7px}.tag{display:inline-block;font-size:12px;font-weight:800;padding:5px 8px;border-radius:7px;background:#edf1ff;color:#315efb;margin-bottom:12px}.formula{background:#f4f6fb;border-left:4px solid #315efb;padding:11px;border-radius:7px;font-weight:800;margin:13px 0}.shape{height:130px;display:grid;place-items:center}.sq{width:82px;height:82px;border:5px solid #315efb}.rect{width:125px;height:72px;border:5px solid #315efb}.tri{width:0;height:0;border-left:54px solid transparent;border-right:54px solid transparent;border-bottom:95px solid #315efb}.circ{width:92px;height:92px;border:5px solid #315efb;border-radius:50%}.cyl{width:90px;height:82px;border:5px solid #315efb;border-radius:45px/18px;position:relative}.cyl:after{content:"";position:absolute;left:-5px;right:-5px;bottom:-5px;height:18px;border:5px solid #315efb;border-radius:50%}.tools{display:grid;grid-template-columns:1fr 1fr;gap:17px}.form label{display:block;font-size:13px;font-weight:750;margin:9px 0 5px}.form input,.form select{width:100%;padding:11px;border:1px solid #d5dbe6;border-radius:9px;outline:none}.form input:focus,.form select:focus{border-color:#315efb;box-shadow:0 0 0 3px #315efb18}.primary{background:#315efb;color:#fff;padding:11px 16px;border-radius:9px;font-weight:800}.result{margin-top:14px;padding:13px;border-radius:10px;background:#effcf3;border:1px solid #c9efd6;min-height:45px}.steps{margin-top:13px;padding:14px;background:#fafbff;border-radius:10px;border:1px solid #e6e9f2}.steps div{padding:6px 0;border-bottom:1px dashed #ddd}.steps div:last-child{border:0}.exercise{padding:19px;margin-bottom:13px;border:1px solid var(--line);border-radius:14px;background:#fff}.option{display:block;padding:10px;border:1px solid #e0e5ee;border-radius:9px;margin:8px 0;cursor:pointer}.option:hover{background:#f7f9ff}.option input{margin-right:8px}.feedback{font-weight:750;margin-top:8px}.lesson{display:grid;grid-template-columns:1fr 1fr;gap:17px}.note{background:#fff7e9;border:1px solid #f6dfb5;padding:15px;border-radius:12px}.level{display:flex;align-items:center;gap:13px}.level-badge{width:64px;height:64px;border-radius:17px;display:grid;place-items:center;background:#ede9fe;color:#6d28d9;font-size:25px}.medals{display:flex;gap:12px;flex-wrap:wrap}.medal{padding:13px 15px;border-radius:13px;background:#f7f8fb;border:1px solid var(--line);text-align:center;min-width:105px}.medal .ico{font-size:28px}.hidden{display:none}@media(max-width:900px){aside{width:72px;padding:15px 9px}.logo b,.nav span,.side-card{display:none}main{margin-left:72px;width:calc(100% - 72px);padding:22px}.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}.tools,.lesson{grid-template-columns:1fr}}@media(max-width:600px){aside{display:none}main{margin:0;width:100%;padding:15px}.grid,.stats{grid-template-columns:1fr}.top{margin-bottom:15px}.hero{padding:25px 20px}.hero-art{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+<div class="logo"><span>△</span><b>GeoLab 7</b></div>
+<div class="nav">
+<button class="active" onclick="show('inicio',this)">⌂ <span>Inicio</span></button>
+<button onclick="show('aprende',this)">◈ <span>Aprende</span></button>
+<button onclick="show('explora',this)">⬡ <span>Explora figuras</span></button>
+<button onclick="show('calcula',this)">∑ <span>Calculadora</span></button>
+<button onclick="show('practica',this)">✓ <span>Practica</span></button>
+<button onclick="show('desafio',this)">★ <span>Desafío ICFES</span></button>
+<button onclick="show('progreso',this)">◔ <span>Mi progreso</span></button>
+</div>
+<div class="side-card"><small>PROGRESO</small><strong id="sideProgress">0%</strong><div class="mini-bar"><i id="sideBar" style="width:0%"></i></div><small>Completa actividades para subir de nivel.</small></div>
+</aside>
+
+<main>
+<div class="top"><div class="crumb">Aula virtual / Geometría / Áreas y volúmenes</div><div class="profile"><div><b>Estudiante</b><small class="muted" style="display:block">Grado 7°</small></div><div class="avatar">7°</div></div></div>
+
+<section id="inicio" class="page active">
+<div class="hero"><div><span class="tag" style="background:#ffffff20;color:#fff">RUTA DE APRENDIZAJE</span><h1>Domina las áreas y los volúmenes.</h1><p>Aprende las fórmulas, visualiza las figuras, resuelve problemas y demuestra lo que sabes. Tu progreso queda guardado en esta sesión.</p><div class="cta"><button class="btn" onclick="show('aprende',document.querySelectorAll('.nav button')[1])">Comenzar a aprender →</button><button class="btn outline" onclick="show('desafio',document.querySelectorAll('.nav button')[5])">Ir al desafío</button></div></div><div class="hero-art"><div class="cube3"></div></div></div>
+<div class="stats"><div class="stat"><small>PUNTOS</small><strong id="points">0 XP</strong></div><div class="stat"><small>NIVEL</small><strong id="level">Explorador</strong></div><div class="stat"><small>ACTIVIDADES</small><strong id="acts">0 / 8</strong></div><div class="stat"><small>MEJOR RETO</small><strong id="best">—</strong></div></div>
+<div class="section-head"><h2>Tu ruta</h2><span class="muted">4 etapas</span></div>
+<div class="grid">
+<div class="card"><span class="tag">01 · CONCEPTOS</span><h3>Aprende las fórmulas</h3><p class="muted">Diferencia área y volumen y reconoce las unidades.</p><button class="primary" onclick="show('aprende',document.querySelectorAll('.nav button')[1])">Abrir lección</button></div>
+<div class="card"><span class="tag">02 · VISUALIZA</span><h3>Explora figuras</h3><p class="muted">Observa figuras planas y cuerpos geométricos.</p><button class="primary" onclick="show('explora',document.querySelectorAll('.nav button')[2])">Explorar</button></div>
+<div class="card"><span class="tag">03 · RESUELVE</span><h3>Practica y desafía</h3><p class="muted">Entrena con problemas y preguntas tipo prueba.</p><button class="primary" onclick="show('practica',document.querySelectorAll('.nav button')[4])">Practicar</button></div>
+</div></section>
+
+<section id="aprende" class="page">
+<div class="section-head"><div><h2>Aprende: las ideas clave</h2><p class="muted">Antes de calcular, identifica qué estás midiendo.</p></div></div>
+<div class="lesson">
+<div class="card"><span class="tag">ÁREA</span><h3>¿Qué es?</h3><p>Es la medida de la superficie de una figura plana. Se expresa en <b>unidades cuadradas</b>, como cm² o m².</p><div class="formula">Rectángulo → A = b × h</div><p><b>Ejemplo:</b> si b = 8 cm y h = 3 cm, entonces A = 8 × 3 = <b>24 cm²</b>.</p></div>
+<div class="card"><span class="tag">VOLUMEN</span><h3>¿Qué es?</h3><p>Es la medida del espacio que ocupa un cuerpo geométrico. Se expresa en <b>unidades cúbicas</b>, como cm³ o m³.</p><div class="formula">Prisma rectangular → V = largo × ancho × alto</div><p><b>Ejemplo:</b> 5 × 3 × 2 = <b>30 cm³</b>.</p></div>
+</div>
+<div class="section-head"><h2>Fórmulas esenciales</h2></div>
+<div class="grid">
+<div class="card"><h3>Cuadrado</h3><div class="formula">A = l²</div><p class="muted">l = lado</p></div>
+<div class="card"><h3>Triángulo</h3><div class="formula">A = (b × h) / 2</div><p class="muted">b = base · h = altura</p></div>
+<div class="card"><h3>Círculo</h3><div class="formula">A = πr²</div><p class="muted">r = radio</p></div>
+<div class="card"><h3>Cubo</h3><div class="formula">V = l³</div><p class="muted">l = lado</p></div>
+<div class="card"><h3>Cilindro</h3><div class="formula">V = πr²h</div><p class="muted">r = radio · h = altura</p></div>
+<div class="card"><h3>Pirámide</h3><div class="formula">V = (Ab × h) / 3</div><p class="muted">Ab = área de la base</p></div>
+</div>
+<div class="note"><b>💡 Regla de oro:</b> si te preguntan por una superficie, piensa en <b>área</b>. Si te preguntan cuánto cabe dentro de un cuerpo, piensa en <b>volumen</b>.</div>
+</section>
+
+<section id="explora" class="page">
+<div class="section-head"><div><h2>Explora las figuras</h2><p class="muted">Selecciona una figura para ver sus datos y fórmula.</p></div></div>
+<div class="grid">
+<div class="card"><div class="shape"><div class="sq"></div></div><h3>Cuadrado</h3><p class="muted">4 lados iguales</p><div class="formula">A = l²</div></div>
+<div class="card"><div class="shape"><div class="rect"></div></div><h3>Rectángulo</h3><p class="muted">Lados opuestos iguales</p><div class="formula">A = b × h</div></div>
+<div class="card"><div class="shape"><div class="tri"></div></div><h3>Triángulo</h3><p class="muted">3 lados</p><div class="formula">A = (b × h) / 2</div></div>
+<div class="card"><div class="shape"><div class="circ"></div></div><h3>Círculo</h3><p class="muted">Radio y diámetro</p><div class="formula">A = πr²</div></div>
+<div class="card"><div class="shape"><div class="cube3" style="transform:scale(.55) rotate(-30deg) skew(8deg);box-shadow:15px 10px 0 #6f83df"></div></div><h3>Cubo</h3><p class="muted">6 caras cuadradas</p><div class="formula">V = l³</div></div>
+<div class="card"><div class="shape"><div class="cyl"></div></div><h3>Cilindro</h3><p class="muted">2 bases circulares</p><div class="formula">V = πr²h</div></div>
+</div>
+</section>
+
+<section id="calcula" class="page">
+<div class="section-head"><div><h2>Calculadora con procedimiento</h2><p class="muted">Elige una figura, escribe las medidas y observa cómo se resuelve.</p></div></div>
+<div class="tools">
+<div class="card form"><label>¿Qué quieres calcular?</label><select id="calcType" onchange="buildCalc()"><option value="sq">Área del cuadrado</option><option value="rect">Área del rectángulo</option><option value="tri">Área del triángulo</option><option value="circle">Área del círculo</option><option value="cube">Volumen del cubo</option><option value="prism">Volumen del prisma</option><option value="cyl">Volumen del cilindro</option><option value="pyr">Volumen de pirámide cuadrangular</option></select><div id="fields"></div><button class="primary" onclick="calc()">Calcular resultado</button><div id="calcResult"></div></div>
+<div class="card"><span class="tag">CONVERSOR</span><h3>Unidades de longitud</h3><p class="muted">Convierte medidas antes de aplicar una fórmula.</p><div class="form"><label>Valor</label><input id="convVal" type="number" placeholder="Ej. 250"><label>De</label><select id="convFrom"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option><option value="km">km</option></select><label>A</label><select id="convTo"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option><option value="km">km</option></select><button class="primary" onclick="convert()">Convertir</button><div id="convResult" class="result"></div></div></div>
+</div>
+</section>
+
+<section id="practica" class="page">
+<div class="section-head"><div><h2>Zona de práctica</h2><p class="muted">Responde 5 ejercicios. Cada respuesta correcta suma 20 XP.</p></div><span class="tag">+100 XP disponibles</span></div>
+<div id="practiceBox"></div><button class="primary" onclick="gradePractice()">Comprobar práctica</button><div id="practiceResult" class="result hidden"></div>
+</section>
+
+<section id="desafio" class="page">
+<div class="section-head"><div><h2>Desafío tipo ICFES</h2><p class="muted">Lee, interpreta y selecciona la mejor respuesta.</p></div></div>
+<div id="quiz"></div><button class="primary" onclick="gradeQuiz()">Finalizar desafío</button><div id="quizResult" class="result hidden"></div>
+</section>
+
+<section id="progreso" class="page">
+<div class="section-head"><div><h2>Mi progreso</h2><p class="muted">Tus avances en esta sesión.</p></div></div>
+<div class="card level"><div class="level-badge" id="badge">△</div><div><small class="muted">NIVEL ACTUAL</small><h2 id="level2" style="margin:3px 0">Explorador</h2><div class="bar" style="width:300px"><i id="progBar" style="width:0%"></i></div><small id="xpText">0 / 200 XP</small></div></div>
+<div class="section-head"><h2>Medallas</h2></div><div class="medals">
+<div class="medal" id="m1"><div class="ico">🔒</div><b>Primer paso</b><small class="muted">Completa una actividad</small></div>
+<div class="medal" id="m2"><div class="ico">🔒</div><b>Calculista</b><small class="muted">Usa la calculadora</small></div>
+<div class="medal" id="m3"><div class="ico">🔒</div><b>Practicante</b><small class="muted">Supera 3 ejercicios</small></div>
+<div class="medal" id="m4"><div class="ico">🔒</div><b>Desafío</b><small class="muted">Completa el ICFES</small></div>
+</div>
+</section>
+</main></div>
+
+<script>
+let xp=0,acts=0,best=0,calcUsed=false,practiceDone=false,quizDone=false;
+const practice=[
+["Un cuadrado tiene lado 9 cm. ¿Cuál es su área?","81 cm²",["18 cm²","81 cm²","36 cm²","27 cm²"]],
+["Un rectángulo mide 12 m de largo y 4 m de ancho. Su área es…","48 m²",["16 m²","32 m²","48 m²","96 m²"]],
+["Un triángulo tiene base 14 cm y altura 5 cm. Su área es…","35 cm²",["19 cm²","35 cm²","70 cm²","140 cm²"]],
+["Un cubo tiene arista de 4 cm. Su volumen es…","64 cm³",["16 cm³","32 cm³","64 cm³","96 cm³"]],
+["Un prisma mide 5 cm × 3 cm × 2 cm. Su volumen es…","30 cm³",["10 cm³","20 cm³","30 cm³","60 cm³"]]
+];
+const quiz=[
+["Una cancha rectangular mide 24 m de largo y 15 m de ancho. Para cubrirla completamente se necesitan materiales que se compran por metro cuadrado. ¿Cuántos m² deben cubrirse?","360 m²",["39 m²","180 m²","360 m²","720 m²"]],
+["Una caja tiene forma de prisma rectangular y mide 40 cm × 25 cm × 20 cm. ¿Cuál es su capacidad?","20 000 cm³",["85 cm³","2 000 cm³","20 000 cm³","40 000 cm³"]],
+["Un estudiante afirma: “Si duplico el lado de un cuadrado, su área también se duplica”. ¿Cuál es la evaluación correcta?","Es incorrecto: el área se cuadruplica.",["Es correcto porque A = 2l².","Es incorrecto: el área se cuadruplica.","Es correcto porque todos los lados aumentan.","Es incorrecto: el área no cambia."]],
+["Una lata cilíndrica tiene radio 3 cm y altura 10 cm. Usando π≈3,14, su volumen aproximado es…","282,6 cm³",["94,2 cm³","188,4 cm³","282,6 cm³","565,2 cm³"]]
+];
+function show(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function update(){document.getElementById('points').textContent=xp+' XP';document.getElementById('acts').textContent=acts+' / 8';document.getElementById('sideProgress').textContent=Math.min(100,Math.round(xp/2))+'%';document.getElementById('sideBar').style.width=Math.min(100,xp/2)+'%';let lvl=xp>=400?'Maestro':xp>=250?'Experto':xp>=100?'Constructor':'Explorador';document.getElementById('level').textContent=lvl;document.getElementById('level2').textContent=lvl;document.getElementById('progBar').style.width=Math.min(100,xp/2)+'%';document.getElementById('xpText').textContent=xp+' / 200 XP';document.getElementById('best').textContent=best?best+'/4':'—';document.getElementById('m1').innerHTML=acts?'<div class="ico">🏅</div><b>Primer paso</b><small class="muted">Desbloqueada</small>':'<div class="ico">🔒</div><b>Primer paso</b><small class="muted">Completa una actividad</small>';document.getElementById('m2').innerHTML=calcUsed?'<div class="ico">🧮</div><b>Calculista</b><small class="muted">Desbloqueada</small>':'<div class="ico">🔒</div><b>Calculista</b><small class="muted">Usa la calculadora</small>';document.getElementById('m3').innerHTML=practiceDone?'<div class="ico">🏆</div><b>Practicante</b><small class="muted">Desbloqueada</small>':'<div class="ico">🔒</div><b>Practicante</b><small class="muted">Supera 3 ejercicios</small>';document.getElementById('m4').innerHTML=quizDone?'<div class="ico">⭐</div><b>Desafío</b><small class="muted">Desbloqueada</small>':'<div class="ico">🔒</div><b>Desafío</b><small class="muted">Completa el ICFES</small>'}
+const fields={sq:[["Lado","l"]],rect:[["Base","b"],["Altura","h"]],tri:[["Base","b"],["Altura","h"]],circle:[["Radio","r"]],cube:[["Arista","l"]],prism:[["Largo","L"],["Ancho","a"],["Alto","h"]],cyl:[["Radio","r"],["Altura","h"]],pyr:[["Lado de base","l"],["Altura","h"]]};
+function buildCalc(){let f=document.getElementById('calcType').value;document.getElementById('fields').innerHTML=fields[f].map(x=>`<label>${x[0]}</label><input id="v${x[1]}" type="number" min="0" step="any" placeholder="Ingresa ${x[0].toLowerCase()}">`).join('');document.getElementById('calcResult').innerHTML=''}
+function val(id){return parseFloat(document.getElementById(id).value)}
+function calc(){let f=document.getElementById('calcType').value, ok=fields[f].every(x=>!isNaN(val('v'+x[1]))&&val('v'+x[1])>=0);if(!ok){document.getElementById('calcResult').innerHTML='<div class="result">⚠️ Completa todas las medidas.</div>';return}let r,steps='',u='';if(f==='sq'){let l=val('vl');r=l*l;u='cm²';steps=`A = l² → A = ${l}² → A = ${r} ${u}`}if(f==='rect'){let b=val('vb'),h=val('vh');r=b*h;u='cm²';steps=`A = b × h → A = ${b} × ${h} → A = ${r} ${u}`}if(f==='tri'){let b=val('vb'),h=val('vh');r=b*h/2;u='cm²';steps=`A = (b × h) / 2 → A = (${b} × ${h}) / 2 → A = ${r} ${u}`}if(f==='circle'){let q=val('vr');r=Math.PI*q*q;u='cm²';steps=`A = πr² → A ≈ 3,14 × ${q}² → A ≈ ${r.toFixed(2)} ${u}`}if(f==='cube'){let l=val('vl');r=l**3;u='cm³';steps=`V = l³ → V = ${l}³ → V = ${r} ${u}`}if(f==='prism'){let L=val('vL'),a=val('va'),h=val('vh');r=L*a*h;u='cm³';steps=`V = L × a × h → V = ${L} × ${a} × ${h} → V = ${r} ${u}`}if(f==='cyl'){let q=val('vr'),h=val('vh');r=Math.PI*q*q*h;u='cm³';steps=`V = πr²h → V ≈ 3,14 × ${q}² × ${h} → V ≈ ${r.toFixed(2)} ${u}`}if(f==='pyr'){let l=val('vl'),h=val('vh'),base=l*l;r=base*h/3;u='cm³';steps=`Ab = l² = ${l}² = ${base}; V = (Ab × h)/3 → (${base} × ${h})/3 = ${r} ${u}`}document.getElementById('calcResult').innerHTML=`<div class="result">✅ <b>Resultado: ${r.toFixed(2)} ${u}</b><div class="steps"><div>${steps}</div></div></div>`;if(!calcUsed){calcUsed=true;xp+=20;acts++;update()}}
+function convert(){let x=parseFloat(document.getElementById('convVal').value);if(isNaN(x)){document.getElementById('convResult').textContent='Escribe un valor.';return}let f=document.getElementById('convFrom').value,t=document.getElementById('convTo').value,m={mm:.001,cm:.01,m:1,km:1000};let r=x*m[f]/m[t];document.getElementById('convResult').innerHTML=`<b>${x} ${f} = ${r} ${t}</b>`}
+function renderExercises(arr,id){document.getElementById(id).innerHTML=arr.map((q,i)=>`<div class="exercise"><b>${i+1}. ${q[0]}</b>${q[2].map((a,j)=>`<label class="option"><input type="radio" name="${id}${i}" value="${a}">${a}</label>`).join('')}<div id="${id}f${i}" class="feedback"></div></div>`).join('')}
+function gradePractice(){let score=0;practice.forEach((q,i)=>{let s=document.querySelector(`input[name="practiceBox${i}"]:checked`),b=document.getElementById('practiceBoxf'+i);if(s&&s.value===q[1]){score++;b.textContent='✓ Correcto';b.style.color='var(--good)'}else{b.textContent='✗ Revisa la fórmula y el procedimiento.';b.style.color='var(--bad)'}});let box=document.getElementById('practiceResult');box.classList.remove('hidden');box.innerHTML=`Resultado: <b>${score}/5</b>. ${score>=3?'¡Muy bien!':'Sigue practicando.'}`;if(!practiceDone){practiceDone=true;xp+=score*20;acts++;update()}}
+function gradeQuiz(){let score=0;quiz.forEach((q,i)=>{let s=document.querySelector(`input[name="quiz${i}"]:checked`),b=document.getElementById('quizf'+i);if(s&&s.value===q[1]){score++;b.textContent='✓ Correcto. Buena interpretación.';b.style.color='var(--good)'}else{b.textContent='✗ Incorrecto. Analiza nuevamente los datos.';b.style.color='var(--bad)'}});best=Math.max(best,score);let box=document.getElementById('quizResult');box.classList.remove('hidden');box.innerHTML=`Puntaje del desafío: <b>${score}/4</b>. ${score===4?'¡Excelente desempeño!':score>=2?'Buen trabajo; revisa los errores.':'Necesitas reforzar algunos conceptos.'}`;if(!quizDone){quizDone=true;xp+=score*25;acts++;update()}}
+buildCalc();renderExercises(practice,'practiceBox');renderExercises(quiz,'quiz');update();
+</script>
+</body>
+</html>
