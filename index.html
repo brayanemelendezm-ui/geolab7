@@ -1,190 +1,704 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GeoLab 7 · Plataforma</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeoLab 7 | Plataforma de aprendizaje</title>
 <style>
-:root{--nav:#101b33;--primary:#315efb;--purple:#7c3aed;--bg:#f5f7fb;--card:#fff;--ink:#14213d;--muted:#667085;--line:#e5e7eb;--good:#159947;--bad:#dc2626}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#101b33,#315efb)}.auth-card{width:min(440px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 25px 70px #0003}.brand{text-align:center}.brand-icon{margin:auto;width:58px;height:58px;border-radius:16px;display:grid;place-items:center;background:#eef2ff;color:var(--primary);font-size:30px;font-weight:900}.brand h1{margin:12px 0 4px}.brand p{color:var(--muted);margin-top:0}.tabs{display:flex;gap:6px;background:#f2f4f8;padding:5px;border-radius:10px;margin:22px 0}.tabs button{flex:1;padding:10px;border:0;background:transparent;border-radius:8px}.tabs .on{background:#fff;box-shadow:0 2px 7px #0001;font-weight:800}.form label{display:block;font-size:13px;font-weight:750;margin:10px 0 5px}.form input,.form select{width:100%;padding:12px;border:1px solid #d4d9e3;border-radius:9px}.primary{background:var(--primary);color:#fff;border:0;border-radius:9px;padding:12px 16px;font-weight:800;width:100%;margin-top:10px}.msg{margin-top:12px;padding:11px;border-radius:9px;background:#f1f5ff;font-size:14px}
-.app{display:none;min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:245px;background:var(--nav);color:#fff;padding:20px 14px}.logo{font-weight:900;font-size:20px;padding:8px 10px 24px}.logo span{display:inline-grid;place-items:center;background:#fff;color:var(--primary);width:36px;height:36px;border-radius:10px;margin-right:8px}.nav button{width:100%;text-align:left;border:0;background:transparent;color:#b9c5df;padding:12px;border-radius:9px;margin:2px 0;font-weight:650}.nav button:hover,.nav button.active{background:#1e2b4c;color:#fff}.logout{position:absolute;bottom:20px;left:14px;right:14px;background:#202d4a;color:#fff;border:0;padding:11px;border-radius:9px}
-main{margin-left:245px;padding:28px;max-width:1450px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.user-chip{display:flex;gap:10px;align-items:center}.avatar{width:40px;height:40px;border-radius:50%;background:#e8edff;color:var(--primary);display:grid;place-items:center;font-weight:900}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(120deg,#173a8f,#315efb 55%,#7c3aed);color:#fff;border-radius:23px;padding:32px}.hero h1{font-size:clamp(28px,4vw,45px);margin:5px 0 8px}.hero p{color:#e8edff;max-width:760px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}.card,.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:0 8px 28px #14213d0b}.stat strong{display:block;font-size:25px;margin-top:5px}.muted{color:var(--muted)}.tag{display:inline-block;background:#edf1ff;color:var(--primary);font-size:12px;font-weight:850;padding:5px 8px;border-radius:7px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.section{margin:28px 0 12px}.bar{height:9px;background:#e8ebf2;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--purple));width:0}.btn{border:0;background:var(--primary);color:#fff;border-radius:9px;padding:10px 15px;font-weight:800}.btn.alt{background:#eef2ff;color:var(--primary)}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--muted);font-size:12px}.exercise{background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px;margin:12px 0}.option{display:block;border:1px solid var(--line);border-radius:8px;padding:10px;margin:7px 0}.success{color:var(--good);font-weight:800}.error{color:var(--bad);font-weight:800}.admin-note{background:#fff7e9;border:1px solid #f0dbac;padding:14px;border-radius:10px;margin-bottom:15px}
-@media(max-width:900px){.sidebar{width:70px}.logo{font-size:0}.logo span{margin:0}.nav button{font-size:0;text-align:center}.nav button:before{font-size:18px}.logout{font-size:0}.logout:before{content:"↪";font-size:18px}main{margin-left:70px}.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}@media(max-width:600px){.sidebar{display:none}main{margin:0;padding:15px}.grid,.stats{grid-template-columns:1fr}}
+:root{
+ --bg:#f3f6fb;--surface:#fff;--ink:#172033;--muted:#64748b;--line:#dbe3ee;
+ --blue:#2563eb;--violet:#7c3aed;--green:#059669;--orange:#d97706;--red:#dc2626;
+ --dark:#0f172a;--shadow:0 12px 32px rgba(15,23,42,.08);--r:20px
+}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Segoe UI,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+.top{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:10px 22px;position:sticky;top:0;z-index:20}
+.brand{display:flex;gap:12px;align-items:center;font-weight:900}.logo{width:45px;height:45px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--violet));color:white;display:grid;place-items:center;font-weight:900}
+.layout{display:grid;grid-template-columns:255px 1fr;min-height:calc(100vh - 70px)}.side{background:var(--dark);color:#cbd5e1;padding:18px;position:sticky;top:70px;height:calc(100vh - 70px);overflow:auto}
+.side-title{text-transform:uppercase;font-size:11px;letter-spacing:1.4px;color:#94a3b8;margin:16px 7px 7px}
+.side button{display:block;width:100%;border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px;border-radius:12px;font-weight:700;margin:3px 0}.side button:hover,.side button.active{background:#1e293b;color:#fff}
+main{padding:28px;max-width:1500px;width:100%;margin:auto}.hero{padding:32px;border-radius:28px;color:white;background:linear-gradient(135deg,#172554,#312e81);box-shadow:var(--shadow)}.hero h1{font-size:clamp(28px,4vw,46px);margin:10px 0}.hero p{max-width:950px;line-height:1.7;color:#dbeafe}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:17px;margin-top:18px}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:21px;box-shadow:var(--shadow)}.c3{grid-column:span 3}.c4{grid-column:span 4}.c6{grid-column:span 6}.c8{grid-column:span 8}.c12{grid-column:span 12}
+.stat{font-size:30px;font-weight:900}.muted{color:var(--muted)}.small{font-size:13px}.tag{display:inline-block;padding:5px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:800;font-size:12px}
+.progress{height:9px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--violet))}
+.area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.area{padding:23px;border:1px solid var(--line);border-radius:18px;background:#fff}.area:hover{box-shadow:var(--shadow);transform:translateY(-2px);transition:.2s}.area-icon{font-size:38px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}.tabs button{padding:10px 13px;border-radius:11px;border:1px solid var(--line);background:#f8fafc;font-weight:800}.tabs button.active{background:var(--dark);color:#fff}
+.lesson{line-height:1.75}.lesson h2{font-size:29px}.lesson h3{margin-top:28px}.formula{padding:16px;background:#eff6ff;border-left:5px solid var(--blue);border-radius:12px;font-weight:900;font-size:18px}.example{padding:16px;background:#f8fafc;border:1px dashed #94a3b8;border-radius:14px;margin:12px 0}.warning,.info,.success{padding:14px;border-radius:13px;margin:13px 0}.warning{background:#fff7ed;color:#9a3412}.info{background:#eff6ff;color:#1e40af}.success{background:#ecfdf5;color:#065f46}
+.activity{border:1px solid var(--line);border-radius:17px;padding:19px;margin:14px 0;background:#fff}.q{font-weight:850;font-size:17px;line-height:1.5}.options{display:grid;gap:9px;margin-top:12px}.opt{display:flex;gap:9px;align-items:flex-start;padding:11px;border:1px solid var(--line);border-radius:12px}.opt:hover{background:#f8fafc}
+.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:850}.primary{background:var(--blue);color:#fff}.secondary{background:#eef2ff;color:#3730a3}.danger{background:#fee2e2;color:#991b1b}.ghost{background:#f8fafc;border:1px solid var(--line)}
+.locked{padding:16px;border-radius:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-weight:800}
+.svgbox{border:1px solid var(--line);background:#f8fafc;border-radius:17px;padding:12px;margin:15px 0}.svgbox svg{width:100%;max-height:260px}
+.kpi{padding:16px;border-radius:15px;background:#f8fafc;border:1px solid var(--line)}.kpi b{font-size:25px}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:12px;border-bottom:1px solid var(--line);text-align:left}.table th{background:#f8fafc}
+.hidden{display:none!important}.login{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#eff6ff,#f5f3ff);padding:20px}.loginbox{width:min(480px,100%);background:#fff;border-radius:25px;padding:30px;box-shadow:var(--shadow)}.field{margin:12px 0}.field label{display:block;font-weight:800;margin-bottom:6px}input,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px}
+.step{display:grid;grid-template-columns:45px 1fr;gap:12px;align-items:start;margin:13px 0}.stepnum{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#dbeafe;color:#1e40af;font-weight:900}
+
+.activity-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.activity .field{margin-top:10px}
+.activity .field input{background:#fbfdff}
+.table td,.table th{vertical-align:top}
+@media(max-width:900px){.activity-grid{grid-template-columns:1fr}}
+
+@media(max-width:950px){.layout{grid-template-columns:1fr}.side{position:static;height:auto}.area-grid{grid-template-columns:1fr}.c3,.c4,.c6,.c8{grid-column:span 12}main{padding:16px}.top{position:static}}
+
+/* --- Nueva arquitectura visual GeoLab 7 --- */
+.side-brand{display:flex;align-items:center;gap:10px;padding:6px 6px 18px;border-bottom:1px solid #263449;margin-bottom:8px}
+.side-brand small{display:block;color:#94a3b8;font-size:11px;margin-top:2px}
+.mini-logo{width:39px;height:39px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#7c3aed);display:grid;place-items:center;color:#fff;font-weight:900}
+.side-note{margin-top:25px;padding:13px;border:1px solid #263449;background:#111c2e;border-radius:14px;font-size:12px}
+.side-note b{display:block;color:#fff;margin-bottom:4px}.side-note span{display:block;color:#93c5fd;font-weight:800}.side-note small{display:block;color:#94a3b8;line-height:1.45;margin-top:5px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}
+.section-head h1{margin:4px 0 6px}.section-head p{margin:0}
+.subject-hero{display:grid;grid-template-columns:1.6fr .7fr;gap:18px;align-items:stretch}
+.subject-cover{border-radius:22px;padding:26px;color:#fff;background:linear-gradient(135deg,#172554,#4338ca);min-height:190px;position:relative;overflow:hidden}
+.subject-cover:after{content:"";position:absolute;width:180px;height:180px;border:30px solid rgba(255,255,255,.08);border-radius:50%;right:-40px;top:-50px}
+.subject-cover h2{font-size:31px;margin:10px 0}.subject-cover p{color:#dbeafe;line-height:1.6;max-width:700px}
+.subject-meta{display:grid;gap:12px}.meta-box{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:15px}.meta-box b{font-size:22px;display:block;margin-top:4px}
+.learning-path{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+.path-item{padding:15px 12px;border:1px solid var(--line);border-radius:15px;background:#fff;position:relative}
+.path-item strong{display:block;margin:5px 0}.path-item small{color:var(--muted);line-height:1.4}.path-dot{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#eef2ff;color:#3730a3;font-weight:900}
+.path-item.active{border-color:#93c5fd;box-shadow:0 8px 20px rgba(37,99,235,.08)}
+.activity-menu{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.activity-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;text-align:left}
+.activity-card button{margin-top:10px}.activity-card h3{margin:6px 0}.activity-card p{font-size:13px;color:var(--muted);line-height:1.45;margin:0}
+.content-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}
+.visual-callout{display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:center;background:#f8fafc;border:1px solid var(--line);border-radius:17px;padding:15px;margin:16px 0}
+.visual-icon{font-size:55px;text-align:center}
+.task-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.task-header .counter{font-weight:900;color:#3730a3;background:#eef2ff;border-radius:99px;padding:7px 11px}
+.progress-big{height:12px;background:#e5e7eb;border-radius:99px;overflow:hidden}.progress-big span{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed)}
+.result-box{padding:18px;border-radius:16px;background:#f8fafc;border:1px solid var(--line);margin-top:15px}
+@media(max-width:900px){.subject-hero{grid-template-columns:1fr}.learning-path{grid-template-columns:1fr 1fr}.activity-menu{grid-template-columns:1fr 1fr}.visual-callout{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div id="auth" class="auth">
-<div class="auth-card">
-<div class="brand"><div class="brand-icon">△</div><h1>GeoLab 7</h1><p>Áreas, volúmenes y aprendizaje interactivo</p></div>
-<div class="tabs"><button id="loginTab" class="on" onclick="authMode('login')">Iniciar sesión</button><button id="regTab" onclick="authMode('register')">Crear cuenta</button></div>
-<form id="loginForm" class="form" onsubmit="login(event)">
-<label>Correo electrónico</label><input id="email" type="email" required>
-<label>Contraseña</label><input id="password" type="password" required>
-<button class="primary">Entrar a GeoLab</button>
-</form>
-<form id="regForm" class="form hidden" onsubmit="register(event)">
-<label>Nombre completo</label><input id="name" required>
-<label>Curso</label><select id="course"><option>7°-1</option><option>7°-2</option><option>7°-3</option></select>
-<label>Correo electrónico</label><input id="regEmail" type="email" required>
-<label>Contraseña</label><input id="regPassword" type="password" minlength="6" required>
-<button class="primary">Crear cuenta de estudiante</button>
-</form>
-<div id="authMsg"></div>
-</div></div>
 
-<div id="app" class="app">
-<aside class="sidebar"><div class="logo"><span>△</span>GeoLab 7</div><div class="nav">
-<button class="active" onclick="showPage('home',this)">⌂ &nbsp; Inicio</button>
-<button onclick="showPage('learn',this)">◈ &nbsp; Aprende</button>
-<button onclick="showPage('practice',this)">✓ &nbsp; Practica</button>
-<button onclick="showPage('challenge',this)">★ &nbsp; Desafío</button>
-<button id="teacherNav" class="hidden" onclick="showPage('teacher',this)">▣ &nbsp; Panel docente</button>
-</div><button class="logout" onclick="logout()">Cerrar sesión</button></aside>
+<div id="login" class="login">
+ <div class="loginbox">
+  <div class="brand"><div class="logo">G7</div><div>GeoLab 7<div class="muted">Aula virtual de séptimo</div></div></div>
+  <h1>Ingreso a la plataforma</h1>
+  <p class="muted">Los tres grupos trabajan la misma ruta académica: <b>7-1 · 7-2 · 7-3</b>.</p>
+  <div class="field"><label>Correo</label><input id="mail" placeholder="correo institucional"></div>
+  <div class="field"><label>Contraseña</label><input type="password" placeholder="••••••••"></div>
+  <div class="field"><label>Grupo</label><select id="group"><option>7-1</option><option>7-2</option><option>7-3</option></select></div>
+  <button class="btn primary" style="width:100%" onclick="enter()">Ingresar</button>
+ </div>
+</div>
+
+<div id="app" class="hidden">
+<header class="top"><div class="brand"><div class="logo">G7</div><div>GeoLab 7 <span class="muted">· Ruta común de séptimo</span></div></div><div><span id="user" class="tag"></span> <button class="btn ghost" onclick="location.reload()">Salir</button></div></header>
+<div class="layout">
+<aside class="side">
+ <div class="side-brand">
+   <div class="mini-logo">G7</div>
+   <div><b>GeoLab 7</b><small>Ruta de Séptimo</small></div>
+ </div>
+ <div class="side-title">Inicio</div>
+ <button id="b-home" class="active" onclick="go('home')">🏠 Inicio</button>
+
+ <div class="side-title">Asignaturas</div>
+ <button id="b-math" onclick="openSubject('math')">🔢 Matemáticas</button>
+ <button id="b-geo" onclick="openSubject('geo')">📐 Geometría</button>
+ <button id="b-stats" onclick="openSubject('stats')">📊 Estadística</button>
+
+ <div class="side-title">Mi progreso</div>
+ <button onclick="go('plan')">🎯 Plan de mejoramiento</button>
+
+ <div id="teacherMenu" class="hidden">
+   <div class="side-title">Docente</div>
+   <button id="b-teacher" onclick="go('teacher')">📊 Seguimiento</button>
+ </div>
+
+ <div class="side-note">
+   <b>Ruta común</b>
+   <span>7-1 · 7-2 · 7-3</span>
+   <small>Todos trabajan los mismos contenidos y actividades.</small>
+ </div>
+</aside>
+
 <main>
-<div class="top"><span class="muted">Aula virtual / Geometría 7°</span><div class="user-chip"><div><b id="userName">Estudiante</b><small id="userCourse" class="muted" style="display:block"></small></div><div class="avatar">7°</div></div></div>
+<section id="home">
+ <div class="hero"><span class="tag">7-1 · 7-2 · 7-3</span><h1>Comprender. Representar. Razonar. Resolver.</h1><p>Esta plataforma no está diseñada para memorizar fórmulas. Cada aprendizaje avanza desde una situación problema hasta la aplicación, el análisis de errores, la argumentación y los desafíos de mayor complejidad.</p></div>
+ <div class="grid">
+  <div class="card c3"><span class="muted small">Progreso</span><div class="stat" id="progress">0%</div><div class="progress"><span id="progressbar" style="width:0%"></span></div></div>
+  <div class="card c3"><span class="muted small">XP</span><div class="stat" id="xp">0</div><span class="small muted">Experiencia</span></div>
+  <div class="card c3"><span class="muted small">Ruta</span><div class="stat">3</div><span class="small muted">áreas integradas</span></div>
+  <div class="card c3"><span class="muted small">Grupo</span><div class="stat" id="g"></div><span class="small muted">misma ruta para séptimo</span></div>
+ </div>
+ <div class="card" style="margin-top:18px"><h2>🧭 Elige un área</h2><div class="area-grid">
+  <div class="area"><div class="area-icon">🔢</div><h2>Matemáticas</h2><p>Razones, proporciones, proporcionalidad y expresiones para modelar situaciones.</p><button class="btn secondary" onclick="openSubject('math')">Entrar</button></div>
+  <div class="area"><div class="area-icon">📐</div><h2>Geometría</h2><p>Figuras, medidas, áreas y volumen con razonamiento espacial y problemas contextualizados.</p><button class="btn secondary" onclick="openSubject('geo')">Entrar</button></div>
+  <div class="area"><div class="area-icon">📊</div><h2>Estadística</h2><p>Datos, frecuencia, representaciones y medidas de tendencia central con interpretación.</p><button class="btn secondary" onclick="openSubject('stats')">Entrar</button></div>
+ </div></div>
+ <div class="grid">
+  <div class="card c4"><h3>1 · Comprende</h3><p>Conceptos, vocabulario, representaciones y ejemplos explicados paso a paso.</p></div>
+  <div class="card c4"><h3>2 · Practica</h3><p>Procedimientos, errores, relaciones, interpretación y problemas.</p></div>
+  <div class="card c4"><h3>3 · Transfiere</h3><p>Desafíos y situaciones nuevas que exigen decidir y justificar.</p></div>
+ </div>
+</section>
 
-<section id="home" class="page active">
-<div class="hero"><span class="tag" style="background:#ffffff20;color:#fff">PLATAFORMA PERSONAL</span><h1>Aprende y demuestra lo que sabes.</h1><p>Tu avance se guarda en la nube. Completa lecciones, practica y supera el desafío para aumentar tu progreso.</p><button class="btn" style="background:#fff;color:#183b91" onclick="showPage('learn')">Comenzar →</button></div>
-<div class="stats"><div class="stat"><small class="muted">XP</small><strong id="xp">0</strong></div><div class="stat"><small class="muted">NIVEL</small><strong id="level">Explorador</strong></div><div class="stat"><small class="muted">PROGRESO</small><strong id="progress">0%</strong></div><div class="stat"><small class="muted">MEJOR DESAFÍO</small><strong id="best">—</strong></div></div>
-<div class="card"><b>Progreso de aprendizaje</b><div class="bar" style="margin-top:10px"><i id="progressBar"></i></div></div>
-<div class="section"><h2>Tu ruta de aprendizaje</h2></div><div class="grid">
-<div class="card"><span class="tag">01</span><h3>Aprende</h3><p class="muted">Comprende área, volumen y sus fórmulas.</p><button class="btn" onclick="showPage('learn')">Ver lecciones</button></div>
-<div class="card"><span class="tag">02</span><h3>Practica</h3><p class="muted">Resuelve problemas con retroalimentación.</p><button class="btn" onclick="showPage('practice')">Practicar</button></div>
-<div class="card"><span class="tag">03</span><h3>Desafío</h3><p class="muted">Demuestra tus competencias con situaciones tipo ICFES.</p><button class="btn" onclick="showPage('challenge')">Desafío</button></div>
-</div></section>
+<section id="learn" class="hidden"><div class="card"><span class="tag">APRENDE</span><h1 id="learnTitle"></h1><p id="learnIntro" class="muted"></p><div id="areaTabs" class="tabs"></div><div id="topicTabs" class="tabs"></div><div id="lesson" class="lesson"></div></div></section>
 
-<section id="learn" class="page"><h2>Aprende</h2><p class="muted">Conceptos esenciales de áreas y volúmenes.</p><div class="grid">
-<div class="card"><span class="tag">ÁREA</span><h3>Superficie</h3><p>La superficie que ocupa una figura plana. Se mide en unidades cuadradas.</p><div class="tag">A = b × h</div></div>
-<div class="card"><span class="tag">TRIÁNGULO</span><h3>Área</h3><p>Multiplica base por altura y divide entre 2.</p><div class="tag">A = (b × h) ÷ 2</div></div>
-<div class="card"><span class="tag">CÍRCULO</span><h3>Área</h3><p>Usa el radio y π.</p><div class="tag">A = πr²</div></div>
-<div class="card"><span class="tag">VOLUMEN</span><h3>Espacio ocupado</h3><p>Se expresa en unidades cúbicas.</p><div class="tag">cm³ · m³</div></div>
-<div class="card"><span class="tag">CUBO</span><h3>Volumen</h3><p>Eleva la arista al cubo.</p><div class="tag">V = l³</div></div>
-<div class="card"><span class="tag">PRISMA</span><h3>Volumen</h3><p>Multiplica largo, ancho y alto.</p><div class="tag">V = L × a × h</div></div>
-</div><div class="card" style="margin-top:16px"><h3>💡 Regla de oro</h3><p>Si preguntas por una <b>superficie</b>, piensa en área. Si preguntas cuánto <b>espacio ocupa</b> un cuerpo, piensa en volumen.</p><button class="btn" onclick="completeLesson()">Marcar lección como completada (+20 XP)</button></div></section>
 
-<section id="practice" class="page"><h2>Zona de práctica</h2><p class="muted">Cinco ejercicios. Cada respuesta correcta vale 20 XP.</p><div id="practiceBox"></div><button class="btn" onclick="gradePractice()">Comprobar respuestas</button><div id="practiceMsg"></div></section>
+<section id="subject" class="hidden">
+ <div class="section-head">
+   <div><span id="subjectTag" class="tag">ASIGNATURA</span><h1 id="subjectTitle">Asignatura</h1><p id="subjectIntro" class="muted"></p></div>
+   <button class="btn ghost" onclick="go('home')">← Volver al inicio</button>
+ </div>
 
-<section id="challenge" class="page"><h2>Desafío tipo ICFES</h2><p class="muted">Interpreta la situación antes de seleccionar.</p><div id="quizBox"></div><button class="btn" onclick="gradeQuiz()">Finalizar desafío</button><div id="quizMsg"></div></section>
+ <div class="subject-hero">
+   <div class="subject-cover">
+     <span class="tag">RUTA DE APRENDIZAJE</span>
+     <h2 id="coverTitle">Asignatura</h2>
+     <p id="coverText">Comprende el concepto, explora sus representaciones, practica, resuelve problemas y demuestra lo aprendido.</p>
+   </div>
+   <div class="subject-meta">
+     <div class="meta-box"><span class="muted small">Grupo</span><b id="subjectGroup">7-1</b><span class="small muted">Ruta común para 7-1, 7-2 y 7-3</span></div>
+     <div class="meta-box"><span class="muted small">Tema actual</span><b id="currentTopic">1</b><span class="small muted">Selecciona otro tema abajo</span></div>
+   </div>
+ </div>
 
-<section id="teacher" class="page"><h2>Panel docente</h2><div class="admin-note">Este panel muestra los estudiantes registrados en Firestore y su progreso sincronizado. Para activarlo, configura tu cuenta docente siguiendo la guía que acompaña este archivo.</div><div class="card"><h3>Resumen del curso</h3><div class="stats" style="margin:15px 0"><div class="stat"><small>ESTUDIANTES</small><strong id="totalStudents">0</strong></div><div class="stat"><small>XP PROMEDIO</small><strong id="avgXp">0</strong></div><div class="stat"><small>PROGRESO PROMEDIO</small><strong id="avgProgress">0%</strong></div><div class="stat"><small>DESAFÍOS</small><strong id="completedChallenges">0</strong></div></div></div><div class="card" style="margin-top:16px"><h3>Estudiantes</h3><div style="overflow:auto"><table><thead><tr><th>Estudiante</th><th>Curso</th><th>XP</th><th>Progreso</th><th>Mejor desafío</th></tr></thead><tbody id="studentRows"><tr><td colspan="5" class="muted">Cargando...</td></tr></tbody></table></div></div></section>
-</main></div>
+ <div class="learning-path">
+   <div class="path-item active"><div class="path-dot">1</div><strong>📚 Aprende</strong><small>Conceptos, ejemplos y representaciones.</small></div>
+   <div class="path-item"><div class="path-dot">2</div><strong>✏️ Practica</strong><small>Procedimientos y análisis de errores.</small></div>
+   <div class="path-item"><div class="path-dot">3</div><strong>🧠 Quiz</strong><small>Comprueba la comprensión.</small></div>
+   <div class="path-item"><div class="path-dot">4</div><strong>🚀 Desafío</strong><small>Aplica y argumenta.</small></div>
+   <div class="path-item"><div class="path-dot">5</div><strong>📝 Evaluación</strong><small>Demuestra el aprendizaje.</small></div>
+ </div>
 
-<script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,updateProfile} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import {getFirestore,doc,setDoc,getDoc,collection,getDocs,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+ <div class="content-card" style="margin-top:18px">
+   <div class="section-head"><div><h2 style="margin:0">Contenido de aprendizaje</h2><p class="muted">Selecciona el tema que vas a trabajar.</p></div></div>
+   <div id="subjectTopicTabs" class="tabs"></div>
+   <div id="subjectContent"></div>
+ </div>
 
-/* ========= PEGA AQUÍ LA CONFIGURACIÓN DE FIREBASE ========= */
-const firebaseConfig={
-  apiKey:"AIzaSyCLuaDi6huafKCH9ZiTqdeLRvb0bRXarmg",
-  authDomain:"geolab7-df196.firebaseapp.com",
-  projectId:"geolab7-df196",
-  storageBucket:"geolab7-df196.firebasestorage.app",
-  messagingSenderId:"110855330355",
-  appId:"1:110855330355:web:3bca3c8d22ea89aa5b6146"
+ <div class="activity-menu">
+   <div class="activity-card"><div class="tag">PRÁCTICA</div><h3>✏️ Taller</h3><p>Ejercicios variados, procedimientos, interpretación y detección de errores.</p><button class="btn secondary" onclick="setMode('practice')">Abrir taller</button></div>
+   <div class="activity-card"><div class="tag">COMPRENSIÓN</div><h3>🧠 Quiz</h3><p>Preguntas para verificar si realmente comprendiste el contenido.</p><button class="btn secondary" onclick="setMode('quiz')">Abrir quiz</button></div>
+   <div class="activity-card"><div class="tag">RAZONAMIENTO</div><h3>🚀 Desafío</h3><p>Problemas de mayor complejidad donde debes decidir y justificar.</p><button class="btn secondary" onclick="setMode('challenge')">Abrir desafío</button></div>
+   <div class="activity-card"><div class="tag">CIERRE</div><h3>📝 Evaluación</h3><p>Evaluación formal de esta asignatura. El envío será definitivo.</p><button class="btn danger" onclick="setMode('eval')">Abrir evaluación</button></div>
+ </div>
+
+ <div class="content-card">
+   <div class="task-header"><div><h2 id="activityTitle" style="margin:0">📚 Aprende</h2><p id="activityDescription" class="muted" style="margin:4px 0 0"></p></div><div class="counter" id="activityStatus">Ruta 1 de 5</div></div>
+   <div class="progress-big"><span id="activityProgress" style="width:20%"></span></div>
+   <div id="activityArea" style="margin-top:18px"></div>
+ </div>
+</section>
+
+<section id="plan" class="hidden"><div class="card"><span class="tag">PLAN DE MEJORAMIENTO</span><h1>Ruta de fortalecimiento</h1><p class="muted">Los contenidos son comunes para los tres grupos; los resultados sí podrán analizarse por curso.</p>
+ <div class="grid">
+  <div class="card c6"><h2>📐 Componente geométrico-métrico</h2><p><b>Propósito:</b> calcular volúmenes, seleccionar y aplicar fórmulas correctamente, resolver situaciones complejas y argumentar procedimientos y resultados.</p><div class="step"><div class="stepnum">1</div><div><b>Diagnóstico</b><br>Comprensión de volumen, unidades y fórmulas.</div></div><div class="step"><div class="stepnum">2</div><div><b>Práctica guiada</b><br>Problemas contextualizados e instrumentos de medición.</div></div><div class="step"><div class="stepnum">3</div><div><b>Desafíos</b><br>Varias estrategias, comparación y análisis de errores.</div></div><div class="step"><div class="stepnum">4</div><div><b>Transferencia</b><br>Diseño de figuras y aplicación en situaciones reales.</div></div></div>
+  <div class="card c6"><h2>🔢 Componente numérico-variacional</h2><p><b>Propósito:</b> reconocer variación, construir expresiones, analizar patrones, modelar situaciones y argumentar.</p><div class="step"><div class="stepnum">1</div><div><b>Diagnóstico</b><br>Distinguir cantidades fijas y variables.</div></div><div class="step"><div class="stepnum">2</div><div><b>Construcción</b><br>Pasar de patrones a expresiones algebraicas.</div></div><div class="step"><div class="stepnum">3</div><div><b>Modelación</b><br>Resolver situaciones y comparar estrategias.</div></div><div class="step"><div class="stepnum">4</div><div><b>Transferencia</b><br>Aplicar el razonamiento a problemas nuevos.</div></div></div>
+ </div>
+ </div></section>
+
+<section id="teacher" class="hidden"><div class="card"><span class="tag">DOCENTE</span><h1>Seguimiento de los tres grupos</h1><p class="muted">Misma ruta académica; resultados separados por grupo.</p><div class="tabs"><button onclick="renderTeacher('Todos')">Todos</button><button onclick="renderTeacher('7-1')">7-1</button><button onclick="renderTeacher('7-2')">7-2</button><button onclick="renderTeacher('7-3')">7-3</button></div><div class="grid"><div class="card c3"><span class="muted">Estudiantes</span><div class="stat" id="ts">0</div></div><div class="card c3"><span class="muted">Progreso promedio</span><div class="stat" id="tp">0%</div></div><div class="card c3"><span class="muted">Talleres/quiz</span><div class="stat" id="ta">0</div></div><div class="card c3"><span class="muted">Desafíos</span><div class="stat" id="tc">0</div></div></div><div style="overflow:auto;margin-top:18px"><table class="table"><thead><tr><th>Estudiante</th><th>Grupo</th><th>Matemáticas</th><th>Geometría</th><th>Estadística</th><th>Progreso</th><th>Necesidad</th></tr></thead><tbody id="tt"></tbody></table></div></div></section>
+</main></div></div>
+
+<script>
+const CONTENT={
+math:{title:"Matemáticas",intro:"Razones, proporciones, proporcionalidad y expresiones para modelar situaciones variables.",topics:[
+{name:"Razones y proporciones",html:`
+<h2>1. Razones: comparar cantidades con sentido</h2>
+<p>Una <b>razón</b> compara dos cantidades que están relacionadas. Puede escribirse como <b>a:b</b> o como una fracción <b>a/b</b>. Antes de calcular, debemos identificar qué cantidades estamos comparando y mantener el mismo orden.</p>
+
+<div class="visual-callout"><div class="visual-icon">🔵🔵🔵🔵 🟠🟠</div><div><b>Ejemplo visual:</b> hay 4 fichas azules y 2 naranjas. La razón de azules a naranjas es <b>4:2 = 2:1</b>. La razón de naranjas a azules sería <b>2:4 = 1:2</b>. Cambiar el orden cambia el significado.</div></div>
+
+<h3>Razones equivalentes</h3>
+<p>Dos razones son equivalentes cuando representan la misma relación. Para obtener una razón equivalente podemos multiplicar o dividir <b>ambos términos por el mismo número distinto de cero</b>.</p>
+<div class="formula">4:2 = 2:1 &nbsp;&nbsp;&nbsp; porque &nbsp;&nbsp;&nbsp; 4÷2 : 2÷2 = 2:1</div>
+<div class="example"><b>Ejemplo:</b> En una receta se usan 3 tazas de arroz por cada 2 tazas de agua. Si preparamos el doble, usamos 6 tazas de arroz y 4 de agua. La relación sigue siendo <b>3:2 = 6:4</b>.</div>
+
+<h3>Proporción</h3>
+<p>Una <b>proporción</b> es una igualdad entre dos razones. Una forma de comprobarla es mediante los productos cruzados.</p>
+<div class="formula">a/b = c/d &nbsp; ⇔ &nbsp; a × d = b × c</div>
+<div class="example"><b>Ejemplo guiado:</b> ¿x/5 = 12/15?<br>
+1. Multiplicamos en cruz: 15x = 5×12.<br>
+2. 15x = 60.<br>
+3. Dividimos entre 15: <b>x = 4</b>.<br>
+4. Comprobamos: 4/5 = 12/15.</div>
+
+<h3>Proporcionalidad directa</h3>
+<p>Dos magnitudes son directamente proporcionales cuando al comparar sus valores se mantiene constante el <b>cociente</b>. Si una cantidad se multiplica por 2, la otra también se multiplica por 2; si una se reduce a la mitad, la otra también.</p>
+<div class="example"><b>Ejemplo:</b> 1 cuaderno cuesta $4.000, 2 cuestan $8.000 y 5 cuestan $20.000. El precio por cuaderno permanece en $4.000. Por eso existe proporcionalidad directa.</div>
+<div class="formula">y/x = constante</div>
+
+<h3>Proporcionalidad inversa</h3>
+<p>Dos magnitudes son inversamente proporcionales cuando, al aumentar una, la otra disminuye de tal manera que el <b>producto</b> de los valores correspondientes permanece constante.</p>
+<div class="example"><b>Ejemplo:</b> para realizar una tarea, si 2 personas tardan 12 horas y 4 personas tardan 6 horas, observamos que <b>2×12 = 4×6 = 24</b>. El producto permanece constante.</div>
+<div class="formula">x × y = constante</div>
+
+<h3>¿Cómo decidir si hay proporcionalidad?</h3>
+<div class="step"><div class="stepnum">1</div><div><b>Identifica las magnitudes:</b> ¿qué cantidad cambia y con cuál se relaciona?</div></div>
+<div class="step"><div class="stepnum">2</div><div><b>Organiza los datos:</b> una tabla puede ayudarte a observar la relación.</div></div>
+<div class="step"><div class="stepnum">3</div><div><b>Comprueba la constante:</b> cociente constante → directa; producto constante → inversa.</div></div>
+<div class="step"><div class="stepnum">4</div><div><b>Interpreta:</b> explica qué significa el resultado en la situación.</div></div>
+
+<div class="warning"><b>Error frecuente:</b> que dos cantidades aumenten al mismo tiempo no demuestra proporcionalidad directa. Primero debemos comprobar la relación entre ellas.</div>
+
+<h3>Mini análisis</h3>
+<div class="example"><b>Situación A:</b> 3 jugos cuestan $9.000 y 6 cuestan $18.000 → directa.<br>
+<b>Situación B:</b> 3 trabajadores tardan 8 horas y 6 trabajadores tardan 4 horas → inversa.<br>
+<b>Situación C:</b> una cantidad aumenta 2 unidades mientras la otra aumenta 5, luego 7, luego 1 → no podemos afirmar proporcionalidad sin una relación constante.</div>`},
+
+{name:"Expresiones y variación",html:`
+<h2>2. De un patrón a una expresión</h2>
+<p>Una situación variable puede representarse mediante <b>palabras, tablas, dibujos, gráficos o expresiones algebraicas</b>. El objetivo no es memorizar una fórmula, sino construir una expresión que describa cómo cambia una cantidad.</p>
+
+<div class="example"><b>Situación:</b> una plataforma cobra $3.000 de inscripción y $2.000 por cada actividad. Si <b>n</b> es el número de actividades, el costo total es:</div>
+<div class="formula">C = 3000 + 2000n</div>
+<p>El <b>3000</b> es la cantidad fija: se paga incluso si no se realiza ninguna actividad. El <b>2000</b> indica cuánto aumenta el costo cada vez que n aumenta en una unidad.</p>
+
+<h3>Construir la expresión paso a paso</h3>
+<div class="step"><div class="stepnum">1</div><div><b>Busca lo fijo:</b> lo que no cambia.</div></div>
+<div class="step"><div class="stepnum">2</div><div><b>Busca lo variable:</b> lo que puede tomar diferentes valores.</div></div>
+<div class="step"><div class="stepnum">3</div><div><b>Observa cómo cambia:</b> cuánto aumenta o disminuye por cada unidad.</div></div>
+<div class="step"><div class="stepnum">4</div><div><b>Escribe la expresión:</b> cantidad fija + cambio por cantidad variable.</div></div>
+<div class="step"><div class="stepnum">5</div><div><b>Comprueba:</b> reemplaza un valor conocido y verifica si coincide con la situación.</div></div>
+
+<h3>Ejemplo con tabla</h3>
+<table class="table"><thead><tr><th>Actividades n</th><th>Costo variable</th><th>Costo total</th></tr></thead>
+<tbody><tr><td>0</td><td>$0</td><td>$3.000</td></tr><tr><td>1</td><td>$2.000</td><td>$5.000</td></tr><tr><td>2</td><td>$4.000</td><td>$7.000</td></tr><tr><td>4</td><td>$8.000</td><td>$11.000</td></tr></tbody></table>
+
+<h3>Comprobar una expresión</h3>
+<div class="example">Si <b>n=4</b>: C = 3000 + 2000(4) = 3000 + 8000 = <b>$11.000</b>.</div>
+
+<h3>Otro ejemplo: una secuencia</h3>
+<p>Observa: <b>5, 8, 11, 14, 17...</b>. Cada término aumenta 3. Si n representa la posición, una expresión que describe la secuencia es <b>3n + 2</b>.</p>
+<div class="example">n=1 → 3(1)+2=5; n=4 → 3(4)+2=14. La expresión coincide con la secuencia.</div>
+
+<div class="info"><b>Idea clave:</b> una buena expresión no solo produce números; también permite explicar por qué esos números cambian de esa manera.</div>`}
+]},
+
+geo:{title:"Geometría",intro:"Área, volumen y resolución de problemas geométrico-métricos mediante diferentes sólidos y situaciones reales.",topics:[
+{name:"Figuras planas",html:`
+<h2>2. Perímetro y área de figuras planas</h2>
+<p>El <b>perímetro</b> corresponde a la longitud del contorno. El <b>área</b> corresponde a la superficie interior. Aunque ambos se relacionan con una figura, responden preguntas diferentes.</p>
+
+<div class="visual-callout"><div class="visual-icon">📏</div><div><b>Ejemplo cotidiano:</b> para poner una cinta alrededor de una cartulina usamos el perímetro; para saber cuánta cartulina necesitamos usamos el área.</div></div>
+
+<h3>Rectángulo</h3>
+<div class="formula">P = 2(b+h) &nbsp;&nbsp;&nbsp; A = b×h</div>
+<div class="example">Rectángulo de 9 cm por 4 cm → P=2(9+4)=<b>26 cm</b>; A=9×4=<b>36 cm²</b>.</div>
+
+<h3>Triángulo</h3>
+<div class="formula">A = (b×h)÷2</div>
+<div class="example">Triángulo de base 14 cm y altura 10 cm → A=(14×10)÷2=<b>70 cm²</b>.</div>
+<p>La altura debe ser <b>perpendicular</b> a la base elegida. No siempre es uno de los lados inclinados del triángulo.</p>
+
+<h3>Paralelogramo</h3>
+<div class="formula">A = b×h</div>
+<div class="example">Base 12 cm y altura perpendicular 7 cm → A=12×7=<b>84 cm²</b>.</div>
+
+<h3>Trapecio</h3>
+<div class="formula">A = ((B+b)×h)÷2</div>
+<div class="example">Bases 10 cm y 6 cm, altura 5 cm → A=((10+6)×5)÷2=<b>40 cm²</b>.</div>
+
+<h3>Descomponer para calcular</h3>
+<p>Una figura compuesta puede dividirse en figuras conocidas. Calculamos las áreas de cada parte y luego sumamos o restamos según corresponda.</p>
+<div class="example"><b>Ejemplo:</b> una figura en forma de “L” puede dividirse en dos rectángulos. No necesitamos memorizar una fórmula nueva: usamos las fórmulas conocidas y organizamos el procedimiento.</div>
+
+<div class="info"><b>Idea clave:</b> antes de escoger una fórmula, identifica qué mide la pregunta y qué dimensiones son realmente necesarias.</div>`},
+
+{name:"Área y volumen",html:`
+<h2>1. Superficie y espacio ocupado</h2>
+<p>El <b>área</b> mide una superficie y se expresa en unidades cuadradas como cm² o m². El <b>volumen</b> mide el espacio que ocupa un cuerpo y se expresa en unidades cúbicas como cm³ o m³.</p>
+
+<div class="visual-callout"><div class="visual-icon">📦</div><div><b>Pregunta clave:</b> si queremos saber cuánto papel necesitamos para cubrir una caja, pensamos en <b>área</b>. Si queremos saber cuánto puede contener, pensamos en <b>volumen</b>.</div></div>
+
+<h3>1. Cubo</h3>
+<div class="svgbox"><svg viewBox="0 0 760 250" aria-label="Cubo"><polygon points="150,75 300,45 390,95 240,125" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><polygon points="240,125 390,95 390,190 240,220" fill="#93c5fd" stroke="#2563eb" stroke-width="3"/><polygon points="150,75 240,125 240,220 150,170" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><text x="180" y="45" font-size="22">a</text><text x="500" y="125" font-size="23">V = a³</text><text x="500" y="165" font-size="20">A total = 6a²</text></svg></div>
+<div class="formula">Volumen del cubo: V = a × a × a = a³</div>
+<div class="example"><b>Ejemplo:</b> un cubo de arista 4 cm → V = 4×4×4 = <b>64 cm³</b>.</div>
+
+<h3>2. Prisma rectangular</h3>
+<div class="svgbox"><svg viewBox="0 0 760 250"><polygon points="100,80 330,80 410,125 180,125" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><polygon points="180,125 410,125 410,205 180,205" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><polygon points="330,80 410,125 410,205 330,160" fill="#93c5fd" stroke="#2563eb" stroke-width="3"/><text x="205" y="65" font-size="21">largo</text><text x="420" y="170" font-size="21">altura</text><text x="100" y="225" font-size="21">ancho</text><text x="490" y="120" font-size="23">V = l × a × h</text></svg></div>
+<div class="formula">V = largo × ancho × altura</div>
+<div class="example"><b>Ejemplo:</b> caja de 8 cm × 5 cm × 3 cm → V = 8×5×3 = <b>120 cm³</b>.</div>
+
+<h3>3. Prisma triangular</h3>
+<div class="svgbox"><svg viewBox="0 0 760 250"><polygon points="120,170 200,70 280,170" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><polygon points="200,70 420,95 500,195 280,170" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><polygon points="120,170 340,195 420,95 200,70" fill="#eff6ff" stroke="#2563eb" stroke-width="3" opacity=".0"/><line x1="200" y1="70" x2="200" y2="170" stroke="#2563eb" stroke-dasharray="6 5" stroke-width="2"/><text x="145" y="205" font-size="20">base triangular</text><text x="350" y="80" font-size="20">longitud</text><text x="530" y="125" font-size="22">V = A₍base₎ × h</text></svg></div>
+<p>Primero calculamos el área del triángulo que forma la base y luego multiplicamos por la longitud del prisma.</p>
+<div class="formula">A triangular = (b × h) ÷ 2 &nbsp;&nbsp; y &nbsp;&nbsp; V = A₍base₎ × longitud</div>
+<div class="example"><b>Ejemplo:</b> base triangular de b=6 cm y h=4 cm, longitud=10 cm.<br>A<sub>base</sub>=(6×4)÷2=12 cm².<br>V=12×10=<b>120 cm³</b>.</div>
+
+<h3>4. Cilindro</h3>
+<div class="svgbox"><svg viewBox="0 0 760 250"><ellipse cx="220" cy="70" rx="90" ry="28" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><rect x="130" y="70" width="180" height="110" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><ellipse cx="220" cy="180" rx="90" ry="28" fill="#93c5fd" stroke="#2563eb" stroke-width="3"/><line x1="220" y1="70" x2="220" y2="180" stroke="#2563eb" stroke-width="2" stroke-dasharray="7 5"/><text x="330" y="130" font-size="21">altura h</text><text x="500" y="105" font-size="22">V = πr²h</text><text x="500" y="145" font-size="19">base circular</text></svg></div>
+<div class="formula">V = área del círculo × altura = πr²h</div>
+<div class="example"><b>Ejemplo:</b> si r=3 cm y h=5 cm, usando π≈3,14:<br>V≈3,14×3²×5 = 3,14×9×5 = <b>141,3 cm³</b>.</div>
+
+<h3>5. Pirámide de base cuadrada</h3>
+<div class="svgbox"><svg viewBox="0 0 760 250"><polygon points="150,175 300,205 430,160 275,135" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><polygon points="275,60 150,175 275,135" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><polygon points="275,60 275,135 430,160" fill="#93c5fd" stroke="#2563eb" stroke-width="3"/><line x1="275" y1="60" x2="275" y2="135" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 5"/><text x="470" y="110" font-size="22">V = (A₍base₎ × h) ÷ 3</text></svg></div>
+<div class="formula">V = (área de la base × altura) ÷ 3</div>
+<div class="example"><b>Ejemplo:</b> base cuadrada de lado 6 cm → A<sub>base</sub>=36 cm². Si h=10 cm:<br>V=(36×10)÷3=<b>120 cm³</b>.</div>
+
+<h3>6. Esfera</h3>
+<div class="svgbox"><svg viewBox="0 0 760 230"><circle cx="220" cy="115" r="80" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><ellipse cx="220" cy="115" rx="80" ry="30" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 5"/><line x1="220" y1="115" x2="300" y2="115" stroke="#2563eb" stroke-width="3"/><text x="250" y="105" font-size="20">r</text><text x="410" y="105" font-size="22">V = 4/3 πr³</text><text x="410" y="145" font-size="19">esfera</text></svg></div>
+<div class="formula">V = 4/3 × π × r³</div>
+<div class="example"><b>Ejemplo:</b> si r=3 cm: V≈(4/3)×3,14×27 ≈ <b>113,04 cm³</b>.</div>
+
+<h3>Comparación de sólidos</h3>
+<table class="table"><thead><tr><th>Sólido</th><th>Qué necesitamos conocer</th><th>Fórmula de volumen</th></tr></thead>
+<tbody>
+<tr><td>Cubo</td><td>Arista</td><td>V=a³</td></tr>
+<tr><td>Prisma rectangular</td><td>Largo, ancho y altura</td><td>V=l×a×h</td></tr>
+<tr><td>Prisma triangular</td><td>Área de la base y longitud</td><td>V=A<sub>base</sub>×h</td></tr>
+<tr><td>Cilindro</td><td>Radio y altura</td><td>V=πr²h</td></tr>
+<tr><td>Pirámide</td><td>Área de la base y altura</td><td>V=(A<sub>base</sub>×h)÷3</td></tr>
+<tr><td>Esfera</td><td>Radio</td><td>V=4/3πr³</td></tr>
+</tbody></table>
+
+<h3>Procedimiento para resolver problemas</h3>
+<div class="step"><div class="stepnum">1</div><div><b>Comprende:</b> identifica el sólido y qué te preguntan.</div></div>
+<div class="step"><div class="stepnum">2</div><div><b>Representa:</b> realiza un esquema y ubica las medidas.</div></div>
+<div class="step"><div class="stepnum">3</div><div><b>Selecciona:</b> decide qué fórmula corresponde al sólido.</div></div>
+<div class="step"><div class="stepnum">4</div><div><b>Calcula:</b> sustituye valores y opera con cuidado.</div></div>
+<div class="step"><div class="stepnum">5</div><div><b>Escribe la unidad:</b> el volumen queda en unidades cúbicas.</div></div>
+<div class="step"><div class="stepnum">6</div><div><b>Verifica:</b> comprueba si el resultado tiene sentido.</div></div>
+
+<div class="warning"><b>Error frecuente:</b> escribir cm² cuando se calculó volumen. Área → unidades cuadradas. Volumen → unidades cúbicas.</div>`}
+]},
+
+stats:{title:"Estadística",intro:"Organización, representación e interpretación de datos para tomar decisiones con evidencia.",topics:[
+{name:"Datos, población, muestra y variables",html:`
+<h2>1. Antes de calcular: entender los datos</h2>
+<p>La estadística comienza con una pregunta. Antes de construir un gráfico o calcular una medida debemos saber <b>qué queremos estudiar, a quiénes estudiaremos y qué característica observaremos</b>.</p>
+
+<h3>Población</h3>
+<p>Es el conjunto total de elementos sobre los cuales queremos obtener información.</p>
+<div class="example"><b>Ejemplo:</b> si queremos estudiar el tiempo que tardan todos los estudiantes de séptimo en llegar al colegio, la población está formada por todos esos estudiantes.</div>
+
+<h3>Muestra</h3>
+<p>Es un subconjunto de la población utilizado cuando no resulta conveniente observar todos sus elementos.</p>
+<div class="example"><b>Ejemplo:</b> de 180 estudiantes seleccionamos 40 para responder una encuesta. Los 180 forman la población y los 40 constituyen la muestra.</div>
+
+<h3>Variable estadística</h3>
+<p>Es la característica que observamos o medimos en cada elemento de la población o muestra.</p>
+<div class="example"><b>Ejemplos:</b> edad, número de hermanos, medio de transporte, estatura, tiempo de desplazamiento, color preferido.</div>
+
+<h3>Variables cualitativas y cuantitativas</h3>
+<table class="table"><thead><tr><th>Tipo</th><th>Qué describe</th><th>Ejemplo</th></tr></thead>
+<tbody><tr><td>Cualitativa</td><td>Categorías o cualidades</td><td>Medio de transporte</td></tr><tr><td>Cuantitativa</td><td>Cantidades numéricas</td><td>Edad en años</td></tr></tbody></table>
+
+<h3>Frecuencia absoluta</h3>
+<p>Indica cuántas veces aparece una categoría o valor. Cuando tenemos muchos datos, una <b>tabla de frecuencias</b> permite organizarlos y observar cuántas veces aparece cada valor.</p>
+<div class="example"><b>Datos:</b> bus, bicicleta, bus, caminar, bus, bicicleta.<br>
+Bus → 3; bicicleta → 2; caminar → 1.</div>
+
+<h3>Tabla de frecuencias</h3>
+<table class="table"><thead><tr><th>Transporte</th><th>Frecuencia absoluta (f)</th></tr></thead>
+<tbody><tr><td>Bus</td><td>3</td></tr><tr><td>Bicicleta</td><td>2</td></tr><tr><td>Caminar</td><td>1</td></tr><tr><th>Total</th><th>6</th></tr></tbody></table>
+
+<h3>Datos agrupados y no agrupados</h3>
+<p><b>Datos no agrupados:</b> se presentan individualmente, por ejemplo: 12, 14, 14, 15, 18.</p>
+<p><b>Datos agrupados:</b> se organizan mediante una tabla de frecuencias que reúne los valores y sus frecuencias; cuando hay muchos datos también pueden organizarse en <b>intervalos</b>.</p>
+<div class="example"><b>Ejemplo no agrupado:</b> 10, 12, 12, 13, 15.<br>
+<b>Ejemplo agrupado por valor:</b> 10→1, 12→2, 13→1, 15→1.</div>
+
+<div class="info"><b>Importante:</b> una tabla o gráfico no reemplaza la interpretación. Siempre debemos explicar qué significa la información dentro del contexto.</div>`},
+
+{name:"Media, mediana y moda",html:`
+<h2>2. Medidas de tendencia central: datos no agrupados y agrupados</h2>
+<p>La <b>media, mediana y moda</b> son medidas de tendencia central. Buscan describir un conjunto de datos mediante un valor representativo, pero cada una se calcula y se interpreta de manera diferente.</p>
+
+<h2>Parte A. Datos no agrupados</h2>
+
+<h3>1. Media aritmética de datos no agrupados</h3>
+<p>Cuando los datos aparecen individualmente, sumamos todos los valores y dividimos entre el número total de datos.</p>
+<div class="formula">Media = (x₁ + x₂ + x₃ + ... + xₙ) ÷ n</div>
+<div class="example"><b>Ejemplo:</b> datos: 2, 3, 3, 5, 7.<br>
+Suma = 2+3+3+5+7 = 20.<br>
+Número de datos = 5.<br>
+Media = 20÷5 = <b>4</b>.</div>
+
+<h3>2. Mediana de datos no agrupados</h3>
+<p>Primero se ordenan los datos de menor a mayor. Después se identifica la posición central.</p>
+<div class="example"><b>Cantidad impar:</b> 2, 3, 3, 5, 7 → hay 5 datos → la posición central es la tercera → mediana = <b>3</b>.<br><br>
+<b>Cantidad par:</b> 2, 4, 6, 8 → los dos valores centrales son 4 y 6 → mediana = (4+6)÷2 = <b>5</b>.</div>
+
+<h3>3. Moda de datos no agrupados</h3>
+<p>Es el valor que aparece con mayor frecuencia. Puede existir una moda, varias modas o ninguna.</p>
+<div class="example"><b>Ejemplo:</b> 2, 2, 4, 5, 5, 5, 8 → el 5 aparece tres veces → moda = <b>5</b>.</div>
+
+<h2>Parte B. Datos agrupados en una tabla de frecuencias</h2>
+
+<p>Cuando los datos están organizados en una tabla, la frecuencia indica cuántas veces aparece cada valor. Esto permite calcular la media sin tener que escribir todos los datos uno por uno.</p>
+
+<h3>Media para datos agrupados</h3>
+<div class="formula">Media = Σ(x·f) ÷ Σf</div>
+<p><b>x</b> representa el valor y <b>f</b> su frecuencia. Multiplicamos cada valor por las veces que aparece, sumamos esos productos y dividimos entre el total de datos.</p>
+
+<div class="example"><b>Ejemplo:</b> número de libros leídos por un grupo:</div>
+<table class="table"><thead><tr><th>Libros (x)</th><th>Frecuencia (f)</th><th>x·f</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>2</td><td>0</td></tr>
+<tr><td>1</td><td>4</td><td>4</td></tr>
+<tr><td>2</td><td>3</td><td>6</td></tr>
+<tr><td>3</td><td>1</td><td>3</td></tr>
+<tr><th>Total</th><th>10</th><th>13</th></tr>
+</tbody></table>
+<p>Media = 13÷10 = <b>1,3 libros</b>.</p>
+
+<h3>Mediana para datos agrupados por valor</h3>
+<p>Cuando tenemos una tabla de frecuencias, podemos reconstruir mentalmente el orden utilizando las frecuencias acumuladas. La mediana corresponde al dato que ocupa la posición central.</p>
+<table class="table"><thead><tr><th>Valor</th><th>f</th><th>Frecuencia acumulada</th></tr></thead>
+<tbody><tr><td>1</td><td>2</td><td>2</td></tr><tr><td>2</td><td>3</td><td>5</td></tr><tr><td>3</td><td>4</td><td>9</td></tr><tr><td>4</td><td>1</td><td>10</td></tr></tbody></table>
+<p>Hay 10 datos. Las posiciones centrales son 5 y 6. La posición 5 corresponde a 2 y la posición 6 corresponde a 3; por tanto, mediana = (2+3)÷2 = <b>2,5</b>.</p>
+
+<h3>Moda para datos agrupados</h3>
+<p>En una tabla de frecuencias, la moda es el valor que tiene la <b>mayor frecuencia</b>.</p>
+<div class="example">Si las frecuencias son 2, 3, 4 y 1, la mayor frecuencia es 4. El valor asociado a esa frecuencia es la <b>moda</b>.</div>
+
+<h2>Parte C. Cuando los datos están agrupados en intervalos</h2>
+<p>Si tenemos muchos datos, pueden organizarse en intervalos, por ejemplo: 10–14, 15–19, 20–24. En este caso, ya no conocemos cada dato individual; conocemos cuántos datos están dentro de cada intervalo.</p>
+
+<table class="table"><thead><tr><th>Intervalo de edad</th><th>Frecuencia (f)</th><th>Marca de clase (x)</th></tr></thead>
+<tbody><tr><td>10–14</td><td>5</td><td>12</td></tr><tr><td>15–19</td><td>8</td><td>17</td></tr><tr><td>20–24</td><td>7</td><td>22</td></tr></tbody></table>
+
+<p>La <b>marca de clase</b> es el punto medio del intervalo. Por ejemplo, para 10–14: (10+14)÷2 = <b>12</b>.</p>
+
+<p>Para estimar la media de datos agrupados en intervalos usamos:</p>
+<div class="formula">Media aproximada = Σ(marca de clase × frecuencia) ÷ Σfrecuencias</div>
+
+<div class="example"><b>Ejemplo:</b><br>
+12×5 = 60; 17×8 = 136; 22×7 = 154.<br>
+Σ(x·f)=350 y Σf=20.<br>
+Media aproximada = 350÷20 = <b>17,5 años</b>.</div>
+
+<div class="warning"><b>Importante:</b> cuando los datos están agrupados en intervalos, la media calculada con las marcas de clase es una <b>estimación</b>, porque no conocemos el valor exacto de cada dato dentro del intervalo.</div>
+
+<h3>Comparación rápida</h3>
+<table class="table"><thead><tr><th>Medida</th><th>No agrupados</th><th>Agrupados</th></tr></thead>
+<tbody>
+<tr><td>Media</td><td>Σx ÷ n</td><td>Σ(x·f) ÷ Σf</td></tr>
+<tr><td>Mediana</td><td>Ordenar y localizar el centro</td><td>Usar frecuencias para localizar la posición central; con intervalos requiere identificar la clase mediana y aplicar un procedimiento específico</td></tr>
+<tr><td>Moda</td><td>Valor más frecuente</td><td>Valor con mayor frecuencia; en intervalos, clase con mayor frecuencia</td></tr>
+</tbody></table>
+
+<h3>¿Cuál medida conviene usar?</h3>
+<p>La elección depende de la situación. La <b>media</b> utiliza todos los valores; la <b>mediana</b> identifica el centro y suele ser menos sensible a valores extremos; la <b>moda</b> muestra el valor o categoría más frecuente.</p>
+
+<div class="example"><b>Situación:</b> los tiempos de llegada son 12, 13, 13, 14 y 60 minutos. La media es 22,4 minutos, mientras que la mediana es 13. El valor 60 aumenta mucho la media; por eso, para describir el tiempo típico del grupo, la mediana puede ser más representativa.</div>
+
+<h3>Ruta para resolver cualquier ejercicio</h3>
+<div class="step"><div class="stepnum">1</div><div><b>Identifica:</b> ¿los datos están individuales, en una tabla por valores o en intervalos?</div></div>
+<div class="step"><div class="stepnum">2</div><div><b>Organiza:</b> si es necesario, ordena los datos o construye la tabla de frecuencias.</div></div>
+<div class="step"><div class="stepnum">3</div><div><b>Elige la medida:</b> media, mediana o moda según lo que quieras conocer.</div></div>
+<div class="step"><div class="stepnum">4</div><div><b>Calcula:</b> aplica el procedimiento correspondiente al tipo de datos.</div></div>
+<div class="step"><div class="stepnum">5</div><div><b>Interpreta:</b> expresa qué significa el resultado en el contexto.</div></div>
+
+<div class="warning"><b>Error frecuente:</b> usar la fórmula de datos no agrupados directamente sobre una tabla de frecuencias sin considerar las frecuencias. Cuando un valor se repite, su frecuencia debe intervenir en el cálculo.</div>`}
+]}
 };
-/* ========================================================== */
 
-const ready=Object.values(firebaseConfig).every(v=>v && !String(v).startsWith("TU_"));
-let appDb,auth,db,currentUser,profile={};
-if(ready){const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);onAuthStateChanged(auth,loadUser)}
-else{document.getElementById("authMsg").innerHTML='<div class="msg">⚠️ Falta conectar Firebase. Abre la guía de configuración incluida con este proyecto.</div>'}
+let area="geo", topic=0, mode="learn";
+let state={
+ math:{practice:false,quiz:false,challenge:false,eval:false},
+ geo:{practice:false,quiz:false,challenge:false,eval:false},
+ stats:{practice:false,quiz:false,challenge:false,eval:false}
+};
+let user={group:"7-1",teacher:false};
 
-const $ = id => document.getElementById(id);
-window.authMode=m=>{$("loginForm").classList.toggle("hidden",m!=="login");$("regForm").classList.toggle("hidden",m!=="register");$("loginTab").classList.toggle("on",m==="login");$("regTab").classList.toggle("on",m==="register");$("authMsg").innerHTML=""}
-
-window.login=async e=>{
-  e.preventDefault();
-  if(!ready)return;
-  const emailValue=$("email").value.trim();
-  const passwordValue=$("password").value;
-  const button=e.submitter;
-  button.disabled=true;
-  button.textContent="Conectando...";
-  $("authMsg").innerHTML="";
-  try{
-    await signInWithEmailAndPassword(auth,emailValue,passwordValue);
-  }catch(err){
-    console.error("Firebase login error:",err);
-    const code=err?.code||"";
-    let msg="No se pudo iniciar sesión.";
-    if(code==="auth/invalid-credential"||code==="auth/wrong-password"||code==="auth/user-not-found") msg="Correo o contraseña incorrectos.";
-    else if(code==="auth/too-many-requests") msg="Demasiados intentos. Espera unos minutos y vuelve a intentarlo.";
-    else if(code==="auth/network-request-failed") msg="No hay conexión con Firebase. Revisa tu internet.";
-    else msg+=` Código: ${code||"desconocido"}.`;
-    $("authMsg").innerHTML=`<div class="msg error">${msg}</div>`;
-    button.disabled=false;
-    button.textContent="Entrar a GeoLab";
-  }
+function enter(){
+ let email=document.getElementById("mail").value.trim();
+ user.group=document.getElementById("group").value;
+ user.teacher=/docente|teacher/i.test(email);
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+ document.getElementById("user").textContent=(user.teacher?"👨‍🏫 Docente":"👨‍🎓 Estudiante")+" · "+user.group;
+ document.getElementById("g").textContent=user.group;
+ if(user.teacher)document.getElementById("teacherMenu").classList.remove("hidden");
+ update(); go("home");
 }
-
-window.register=async e=>{
-  e.preventDefault();
-  if(!ready)return;
-  const button=e.submitter;
-  button.disabled=true;
-  button.textContent="Creando...";
-  $("authMsg").innerHTML="";
-  try{
-    const cred=await createUserWithEmailAndPassword(auth,$("regEmail").value.trim(),$("regPassword").value);
-    await updateProfile(cred.user,{displayName:$("name").value.trim()});
-    await setDoc(doc(db,"users",cred.user.uid),{
-      name:$("name").value.trim(),email:$("regEmail").value.trim(),course:$("course").value,role:"student",
-      xp:0,progress:0,bestChallenge:0,lessonDone:false,practiceDone:false,challengeDone:false,createdAt:serverTimestamp()
-    });
-  }catch(err){
-    console.error("Firebase register error:",err);
-    $("authMsg").innerHTML=`<div class="msg error">No se pudo crear la cuenta. Código: ${err?.code||"desconocido"}.</div>`;
-    button.disabled=false;
-    button.textContent="Crear cuenta de estudiante";
-  }
+function go(id){
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ document.querySelectorAll(".side button").forEach(b=>b.classList.remove("active"));
+ let b=document.getElementById("b-"+id);if(b)b.classList.add("active");
+ if(id==="teacher")renderTeacher("Todos");
+ window.scrollTo(0,0);
 }
-
-async function loadUser(u){
-  if(!u)return;
-  currentUser=u;
-  try{
-    const snap=await getDoc(doc(db,"users",u.uid));
-    profile=snap.exists()?snap.data():{
-      name:u.displayName||"Estudiante",course:"",role:"student",xp:0,progress:0,bestChallenge:0
-    };
-    $("auth").style.display="none";
-    $("app").style.display="flex";
-    $("userName").textContent=profile.name||u.displayName||"Estudiante";
-    $("userCourse").textContent=profile.course||"";
-    $("teacherNav").classList.toggle("hidden",profile.role!=="teacher");
-    render();
-    if(profile.role==="teacher") await loadStudents();
-  }catch(err){
-    console.error("Firestore profile error:",err);
-    await signOut(auth);
-    $("auth").style.display="";
-    $("app").style.display="none";
-    $("authMsg").innerHTML=`<div class="msg error">La cuenta se autenticó, pero no se pudo leer su perfil en Firestore. Código: ${err?.code||"desconocido"}. Revisa las reglas de Firestore.</div>`;
-  }
+function openSubject(s){
+ area=s; topic=0; mode="learn";
+ document.querySelectorAll(".side button").forEach(b=>b.classList.remove("active"));
+ document.getElementById("b-"+(s==="math"?"math":s==="geo"?"geo":"stats")).classList.add("active");
+ go("subject"); renderSubject();
 }
-async function save(data){profile={...profile,...data};await setDoc(doc(db,"users",currentUser.uid),profile,{merge:true});render()}
-function render(){const x=profile.xp||0,p=Math.min(100,profile.progress||0);xp.textContent=x;progress.textContent=p+"%";progressBar.style.width=p+"%";best.textContent=profile.bestChallenge?profile.bestChallenge+"/4":"—";level.textContent=x>=400?"Maestro":x>=250?"Experto":x>=100?"Constructor":"Explorador"}
-window.logout=()=>signOut(auth)
-window.showPage=(id,btn)=>{document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");if(id==="teacher")loadStudents();scrollTo(0,0)}
-window.completeLesson=async()=>{if(!profile.lessonDone){await save({lessonDone:true,xp:(profile.xp||0)+20,progress:Math.max(profile.progress||0,25)});alert("Lección completada. +20 XP")}}
-const practice=[
-["Un cuadrado tiene lado 9 cm. ¿Cuál es su área?","81 cm²",["18 cm²","81 cm²","36 cm²","27 cm²"]],
-["Un rectángulo mide 12 m × 4 m. Su área es…","48 m²",["16 m²","32 m²","48 m²","96 m²"]],
-["Un triángulo tiene base 14 cm y altura 10 cm. Su área es…","70 cm²",["24 cm²","35 cm²","70 cm²","140 cm²"]],
-["Un cubo tiene arista de 4 cm. Su volumen es…","64 cm³",["16 cm³","32 cm³","64 cm³","96 cm³"]],
-["Un prisma mide 5 cm × 3 cm × 2 cm. Su volumen es…","30 cm³",["10 cm³","20 cm³","30 cm³","60 cm³"]]];
-const quiz=[
-["Una cancha mide 24 m de largo y 15 m de ancho. ¿Qué área se debe cubrir?","360 m²",["39 m²","180 m²","360 m²","720 m²"]],
-["Una caja mide 40 cm × 25 cm × 20 cm. ¿Cuál es su volumen?","20 000 cm³",["85 cm³","2 000 cm³","20 000 cm³","40 000 cm³"]],
-["Si se duplica el lado de un cuadrado, ¿qué sucede con el área?","Se cuadruplica.",["Se duplica.","Se cuadruplica.","No cambia.","Se triplica."]],
-["Un cilindro tiene radio 3 cm y altura 10 cm. Con π≈3,14, su volumen es…","282,6 cm³",["94,2 cm³","188,4 cm³","282,6 cm³","565,2 cm³"]]];
-function renderQuestions(arr,id,prefix){document.getElementById(id).innerHTML=arr.map((q,i)=>`<div class="exercise"><b>${i+1}. ${q[0]}</b>${q[2].map(a=>`<label class="option"><input type="radio" name="${prefix}${i}" value="${a}"> ${a}</label>`).join("")}<div id="${prefix}f${i}"></div></div>`).join("")}
-window.gradePractice=async()=>{let s=0;practice.forEach((q,i)=>{const a=document.querySelector(`input[name="p${i}"]:checked`),f=document.getElementById("pf"+i);if(a?.value===q[1]){s++;f.textContent="✓ Correcto";f.className="success"}else{f.textContent="✗ Revisa el procedimiento";f.className="error"}});practiceMsg.innerHTML=`<div class="msg">Resultado: <b>${s}/5</b> · +${s*20} XP</div>`;if(!profile.practiceDone)await save({practiceDone:true,xp:(profile.xp||0)+s*20,progress:Math.max(profile.progress||0,50)})}
-window.gradeQuiz=async()=>{let s=0;quiz.forEach((q,i)=>{const a=document.querySelector(`input[name="q${i}"]:checked`),f=document.getElementById("qf"+i);if(a?.value===q[1]){s++;f.textContent="✓ Correcto";f.className="success"}else{f.textContent="✗ Incorrecto";f.className="error"}});quizMsg.innerHTML=`<div class="msg">Desafío: <b>${s}/4</b></div>`;await save({challengeDone:true,bestChallenge:Math.max(profile.bestChallenge||0,s),xp:(profile.xp||0)+s*25,progress:100})}
-async function loadStudents(){if(!ready||profile.role!=="teacher")return;const snap=await getDocs(collection(db,"users"));let rows="",sum=0,psum=0,chall=0,n=0;snap.forEach(d=>{const x=d.data();if(x.role==="teacher")return;n++;sum+=x.xp||0;psum+=x.progress||0;if(x.challengeDone)chall++;rows+=`<tr><td><b>${x.name||"—"}</b><br><small>${x.email||""}</small></td><td>${x.course||"—"}</td><td>${x.xp||0}</td><td>${x.progress||0}%</td><td>${x.bestChallenge?x.bestChallenge+"/4":"—"}</td></tr>`});studentRows.innerHTML=rows||'<tr><td colspan="5">No hay estudiantes registrados.</td></tr>';totalStudents.textContent=n;avgXp.textContent=n?Math.round(sum/n):0;avgProgress.textContent=n?Math.round(psum/n)+"%":"0%";completedChallenges.textContent=chall}
-renderQuestions(practice,"practiceBox","p");renderQuestions(quiz,"quizBox","q");
+function setMode(m){mode=m;renderSubjectActivity()}
+function renderSubject(){
+ const d=CONTENT[area];
+ document.getElementById("subjectTag").textContent=d.title.toUpperCase();
+ document.getElementById("subjectTitle").textContent=d.title;
+ document.getElementById("coverTitle").textContent=d.title;
+ document.getElementById("coverText").textContent=d.intro+" La ruta es común para los tres grupos de séptimo.";
+ document.getElementById("subjectGroup").textContent=user.group;
+ document.getElementById("currentTopic").textContent=(topic+1)+" · "+d.topics[topic].name;
+ document.getElementById("subjectIntro").textContent=d.intro;
+ document.getElementById("subjectTopicTabs").innerHTML=d.topics.map((t,i)=>
+  `<button class="${i===topic?"active":""}" onclick="topic=${i};mode='learn';renderSubject()">${i+1}. ${t.name}</button>`).join("");
+ document.getElementById("subjectContent").innerHTML=d.topics[topic].html;
+ document.querySelectorAll("#subject .tabs button").forEach((b,i)=>{});
+ renderSubjectActivity();
+}
+function renderSubjectActivity(){
+ const box=document.getElementById("activityArea");
+ const titles={learn:"📚 Aprende",practice:"✏️ Taller de práctica",quiz:"🧠 Quiz",challenge:"🚀 Desafío",eval:"📝 Evaluación"};
+ const desc={learn:"Comprende el concepto antes de resolver.",practice:"Practica procedimientos y aprende de los errores.",quiz:"Comprueba tu comprensión.",challenge:"Resuelve una situación de mayor complejidad.",eval:"Demuestra lo aprendido en una evaluación formal."};
+ const nums={learn:1,practice:2,quiz:3,challenge:4,eval:5};
+ document.getElementById("activityTitle").textContent=titles[mode];
+ document.getElementById("activityDescription").textContent=desc[mode];
+ document.getElementById("activityStatus").textContent=`Ruta ${nums[mode]} de 5`;
+ document.getElementById("activityProgress").style.width=(nums[mode]*20)+"%";
+ const st=state[area];
+ if(mode==="learn"){
+   box.innerHTML=`<div class="visual-callout"><div class="visual-icon">${area==="math"?"🔢":area==="geo"?"📐":"📊"}</div><div><h3 style="margin:0 0 5px">Antes de pasar al taller</h3><p style="margin:0;color:#64748b">Lee la explicación, revisa el ejemplo y comprueba que puedes explicar con tus propias palabras qué significa el concepto. Después continúa con <b>✏️ Taller de práctica</b>.</p></div></div>`;
+   return;
+ }
+ if(mode==="practice"){
+   if(st.practice){box.innerHTML='<div class="locked">🔒 Taller de práctica de '+CONTENT[area].title+' enviado y cerrado. No se puede modificar este intento.</div>';return;}
+   box.innerHTML=practiceFor(area);
+ }
+ if(mode==="quiz"){
+   if(st.quiz){box.innerHTML='<div class="locked">🔒 Quiz de '+CONTENT[area].title+' enviado y cerrado.</div>';return;}
+   box.innerHTML=quizFor(area);
+ }
+ if(mode==="challenge"){
+   if(st.challenge){box.innerHTML='<div class="locked">🔒 Desafío de '+CONTENT[area].title+' enviado y cerrado.</div>';return;}
+   box.innerHTML=challengeFor(area);
+ }
+ if(mode==="eval"){
+   if(st.eval){box.innerHTML='<div class="locked">🔒 Evaluación de '+CONTENT[area].title+' enviada definitivamente. El intento está cerrado.</div>';return;}
+   box.innerHTML=evalFor(area);
+ }
+}
+function options(name,arr,type="radio"){
+ return `<div class="options">${arr.map(x=>`<label class="opt"><input type="${type}" name="${name}"> ${x}</label>`).join("")}</div>`;
+}
+function practiceFor(s){
+ if(s==="math")return `
+ <div class="activity"><div class="q">1. Una receta utiliza 3 tazas de arroz por cada 2 de agua. Si se duplica la receta, ¿qué relación representa la nueva preparación?</div>${options("m1",["6:4","3:4","4:6","5:4"])}</div>
+ <div class="activity"><div class="q">2. Completa la proporción: 5/8 = x/24.</div><div class="field"><input id="m2" placeholder="Escribe el valor de x"></div></div>
+ <div class="activity"><div class="q">3. Una papelería vende 2 cuadernos por $8.000 y 5 por $20.000. ¿Qué tipo de relación aparece?</div>${options("m3",["Directa, porque el precio por cuaderno es constante.","Inversa, porque más cuadernos cuestan menos.","No proporcional, porque las cantidades cambian.","No se puede comprobar."])}</div>
+ <div class="activity"><div class="q">4. Identifica las afirmaciones correctas.</div>${options("m4",["En proporcionalidad directa el cociente puede mantenerse constante.","En proporcionalidad inversa el producto puede mantenerse constante.","Toda situación con dos variables es proporcional.","Antes de aplicar una regla de tres debemos analizar la relación."],"checkbox")}</div>
+ <div class="activity"><div class="q">5. Una inscripción cuesta $3.000 y cada actividad $2.000. Escribe una expresión para n actividades.</div><div class="field"><input id="m5" placeholder="Ejemplo: 3000 + ..."></div></div>
+ <div class="activity"><div class="q">6. <b>Detecta el error:</b> un estudiante afirma que si 3 trabajadores tardan 8 horas, 6 trabajadores tardarán 16 horas. ¿Qué debería ocurrir si la relación es inversamente proporcional?</div>${options("m6",["El tiempo debería disminuir a 4 horas.","El tiempo debería aumentar a 16 horas.","El tiempo debería mantenerse en 8 horas.","No existe ninguna relación."])}</div>
+ <button class="btn primary" onclick="submitActivity('practice')">ENVIAR TALLER DE MATEMÁTICAS Y CERRAR</button>`;
+ if(s==="geo")return `
+ <div class="activity"><div class="q">1. Un cubo tiene arista de 5 cm. Calcula su volumen.</div>${options("g1",["25 cm³","75 cm³","125 cm³","150 cm³"])}</div>
+ <div class="activity"><div class="q">2. Un prisma rectangular mide 12 cm × 5 cm × 4 cm. Calcula su volumen.</div>${options("g2",["60 cm³","120 cm³","240 cm³","480 cm³"])}</div>
+ <div class="activity"><div class="q">3. Un prisma triangular tiene una base triangular de 6 cm, altura 4 cm y longitud 10 cm. ¿Cuál es su volumen?</div>${options("g3",["60 cm³","100 cm³","120 cm³","240 cm³"])}</div>
+ <div class="activity"><div class="q">4. Selecciona los sólidos cuya fórmula de volumen utiliza el área de la base.</div>${options("g4",["Prisma","Pirámide","Cilindro","Todas las anteriores"],"radio")}</div>
+ <div class="activity"><div class="q">5. Una esfera tiene radio 3 cm. Usando π≈3,14, ¿qué volumen aproximado tiene?</div>${options("g5",["28,26 cm³","56,52 cm³","113,04 cm³","169,56 cm³"])}</div>
+ <div class="activity"><div class="q">6. <b>Detecta el error:</b> una caja de 8×5×3 cm tiene “120 cm²” de volumen. ¿Qué debe corregirse?</div>${options("g6",["La unidad: debe ser cm³.","La unidad: debe ser cm.","El número: debe ser 120 m³.","No hay ningún error."])}</div>
+ <button class="btn primary" onclick="submitActivity('practice')">ENVIAR TALLER DE GEOMETRÍA Y CERRAR</button>`;
+ return `
+ <div class="activity"><div class="q">1. En una encuesta a 30 estudiantes, 18 prefieren bicicleta. Si se estudian esos 30 entre 200 estudiantes, los 30 representan:</div>${options("s1",["La población.","La muestra.","La variable.","La moda."])}</div>
+ <div class="activity"><div class="q">2. Clasifica la variable “medio de transporte utilizado”.</div>${options("s2",["Cualitativa.","Cuantitativa.","Siempre continua.","Siempre discreta."])}</div>
+ <div class="activity"><div class="q">3. Datos: 2, 3, 3, 5, 7. Calcula la media.</div>${options("s3",["3","4","5","20"])}</div>
+ <div class="activity"><div class="q">4. Ordena mentalmente y determina la mediana de 8, 2, 5, 3, 9.</div>${options("s4",["2","3","5","8"])}</div>
+ <div class="activity"><div class="q">5. Datos: bus, bus, bicicleta, caminar, bus, bicicleta. ¿Cuál es la moda?</div>${options("s5",["Bus.","Bicicleta.","Caminar.","No hay moda."])}</div>
+ <div class="activity"><div class="q">6. Selecciona las afirmaciones correctas.</div>${options("s6",["La mediana requiere ordenar los datos.","La media usa todos los valores.","La moda es la categoría o valor más frecuente.","Población y muestra significan exactamente lo mismo."],"checkbox")}</div>
+ <button class="btn primary" onclick="submitActivity('practice')">ENVIAR TALLER DE ESTADÍSTICA Y CERRAR</button>`;
+}
+function quizFor(s){
+ if(s==="math")return `
+ <div class="activity"><div class="q">1. ¿Cuál pareja representa razones equivalentes?</div>${options("mq1",["3:2 y 6:4","4:3 y 8:5","2:5 y 4:5","5:1 y 5:2"])}</div>
+ <div class="activity"><div class="q">2. Selecciona las afirmaciones correctas sobre proporcionalidad.</div>${options("mq2",["En la directa puede mantenerse constante el cociente.","En la inversa puede mantenerse constante el producto.","Toda relación creciente es proporcional.","Primero debemos identificar la relación entre magnitudes."],"checkbox")}</div>
+ <div class="activity"><div class="q">3. Si C=3000+2000n, ¿cuánto cuesta n=5?</div>${options("mq3",["$5.000","$10.000","$13.000","$15.000"])}</div>
+ <div class="activity"><div class="q">4. ¿Qué representa el 3000 en la expresión anterior?</div>${options("mq4",["Una cantidad fija.","El número de actividades.","El costo de cada actividad.","La cantidad que disminuye."])}</div>
+ <div class="activity"><div class="q">5. Explica en una frase por qué no conviene aplicar regla de tres sin analizar primero la situación.</div><div class="field"><input id="mq5" placeholder="Escribe tu explicación"></div></div>
+ <button class="btn primary" onclick="submitActivity('quiz')">ENVIAR QUIZ DE MATEMÁTICAS</button>`;
+ if(s==="geo")return `
+ <div class="activity"><div class="q">1. ¿Qué unidad corresponde al volumen?</div>${options("gq1",["cm","cm²","cm³","kg"])}</div>
+ <div class="activity"><div class="q">2. Selecciona las fórmulas correctas.</div>${options("gq2",["Cubo: V=a³","Cilindro: V=πr²h","Pirámide: V=A_base×h","Esfera: V=4/3πr³"],"checkbox")}</div>
+ <div class="activity"><div class="q">3. ¿Qué tienen en común un prisma, un cilindro y una pirámide al calcular volumen?</div>${options("gq3",["Se relacionan con el área de una base.","Todos usan únicamente la arista.","Todos tienen volumen cero.","Todos se calculan con 6a²."])}</div>
+ <div class="activity"><div class="q">4. Un triángulo de base 14 cm y altura 10 cm tiene área:</div>${options("gq4",["24 cm²","70 cm²","140 cm²","280 cm²"])}</div>
+ <div class="activity"><div class="q">5. La altura de un triángulo debe ser:</div>${options("gq5",["Perpendicular a la base elegida.","Siempre igual al lado mayor.","Siempre uno de los lados inclinados.","Paralela a la base."])}</div>
+ <button class="btn primary" onclick="submitActivity('quiz')">ENVIAR QUIZ DE GEOMETRÍA</button>`;
+ return `
+ <div class="activity"><div class="q">1. ¿Cuál definición corresponde a población?</div>${options("sq1",["Conjunto total que se desea estudiar.","Subconjunto seleccionado.","Característica observada.","Número de veces que aparece un dato."])}</div>
+ <div class="activity"><div class="q">2. Selecciona las afirmaciones correctas.</div>${options("sq2",["La muestra pertenece a la población.","La variable describe una característica.","La frecuencia absoluta cuenta apariciones.","La población siempre tiene exactamente 20 elementos."],"checkbox")}</div>
+ <div class="activity"><div class="q">3. Para los datos 2,3,3,5,7, la media es:</div>${options("sq3",["3","4","5","7"])}</div>
+ <div class="activity"><div class="q">4. Para esos mismos datos, la mediana es:</div>${options("sq4",["2","3","4","7"])}</div>
+ <div class="activity"><div class="q">5. ¿Qué medida identifica el valor más frecuente?</div>${options("sq5",["Media","Mediana","Moda","Rango"])}</div>
+ <button class="btn primary" onclick="submitActivity('quiz')">ENVIAR QUIZ DE ESTADÍSTICA</button>`;
+}
+function challengeFor(s){
+ if(s==="math")return `
+ <div class="activity"><div class="q">🚀 <b>Desafío:</b> Una empresa cobra una tarifa fija de $6.000 y $1.500 por cada paquete enviado. Otra cobra $2.500 por paquete sin tarifa fija. ¿Para cuántos paquetes cuestan lo mismo? Construye una expresión para cada empresa y explica tu estrategia.</div>
+ <div class="field"><input id="mc1" placeholder="Escribe el número de paquetes"></div>
+ <div class="field"><input id="mc2" placeholder="Explica cómo lo encontraste"></div></div>
+ <div class="activity"><div class="q">Ahora analiza: ¿qué empresa conviene si se envían pocos paquetes? ¿y si se envían muchos?</div>${options("mc3",["Depende de la cantidad de paquetes.","Siempre conviene la primera.","Siempre conviene la segunda.","No se puede comparar."])}</div>
+ <button class="btn primary" onclick="submitActivity('challenge')">ENVIAR DESAFÍO DE MATEMÁTICAS</button>`;
+ if(s==="geo")return `
+ <div class="activity"><div class="q">🚀 <b>Desafío de diseño:</b> necesitas fabricar un recipiente de 240 cm³. Puedes elegir entre un prisma rectangular de 10×6×h, un cubo o un cilindro. Para el prisma, encuentra h. Para el cubo, determina la arista aproximada. Para el cilindro, propone un radio y una altura que produzcan aproximadamente 240 cm³.</div>
+ <div class="field"><input id="gc1" placeholder="Altura del prisma"></div>
+ <div class="field"><input id="gc2" placeholder="Arista aproximada del cubo"></div>
+ <div class="field"><input id="gc3" placeholder="Una propuesta para el cilindro"></div></div>
+ <div class="activity"><div class="q">¿Qué información adicional necesitarías para decidir cuál recipiente es más conveniente de fabricar?</div>${options("gc4",["Costo y material, además de las dimensiones.","Solo el volumen.","Solo el nombre del sólido.","Ninguna."])}</div>
+ <button class="btn primary" onclick="submitActivity('challenge')">ENVIAR DESAFÍO DE GEOMETRÍA</button>`;
+ return `
+ <div class="activity"><div class="q">🚀 <b>Desafío de interpretación:</b> dos grupos obtuvieron estos tiempos de llegada.<br><br>
+ Grupo A: 12, 13, 13, 14, 15<br>
+ Grupo B: 10, 11, 12, 13, 21<br><br>
+ Calcula o compara media, mediana y dispersión observada. ¿Cuál grupo parece más regular?</div>
+ <div class="field"><input id="sc1" placeholder="¿Cuál grupo es más regular y por qué?"></div></div>
+ <div class="activity"><div class="q">Si el colegio quisiera comunicar un “tiempo típico” sin que un valor extremo influya demasiado, ¿qué medida considerarías?</div>${options("sc2",["Mediana.","Solo la suma.","Frecuencia absoluta.","Número de datos."])}</div>
+ <button class="btn primary" onclick="submitActivity('challenge')">ENVIAR DESAFÍO DE ESTADÍSTICA</button>`;
+}
+function evalFor(s){
+ if(s==="math")return `
+ <div class="activity"><div class="q">1. Una tienda vende 4 camisetas por $80.000 y 7 camisetas por $140.000. ¿La relación precio-cantidad es proporcional?</div>${options("me1",["Sí, porque el precio por camiseta es constante.","No, porque 7 es mayor que 4.","Sí, porque cualquier aumento es proporcional.","No se puede analizar."])}</div>
+ <div class="activity"><div class="q">2. Una situación tiene x×y=48. Si x pasa de 6 a 12, ¿qué ocurre con y?</div>${options("me2",["Pasa de 8 a 4.","Pasa de 8 a 16.","Permanece en 8.","Pasa de 6 a 12."])}</div>
+ <div class="activity"><div class="q">3. Una expresión representa un costo: C=5000+3000n. Explica qué significa cada término.</div><div class="field"><input id="me3" placeholder="Escribe tu interpretación"></div></div>
+ <div class="activity"><div class="q">4. Una secuencia comienza 7, 10, 13, 16... Escribe una expresión para el término n.</div><div class="field"><input id="me4" placeholder="Expresión"></div></div>
+ <div class="activity"><div class="q">5. <b>Argumenta:</b> un compañero dice “si dos cantidades aumentan, son directamente proporcionales”. ¿Qué responderías?</div><div class="field"><input id="me5" placeholder="Justifica tu respuesta"></div></div>
+ <button class="btn danger" onclick="submitActivity('eval')">ENVIAR EVALUACIÓN DEFINITIVA DE MATEMÁTICAS</button>`;
+ if(s==="geo")return `
+ <div class="activity"><div class="q">1. Un prisma rectangular mide 8×5×3 cm. Su volumen es:</div>${options("ge1",["120 cm³","120 cm²","40 cm³","16 cm³"])}</div>
+ <div class="activity"><div class="q">2. Una pirámide tiene área de base 36 cm² y altura 10 cm. Su volumen es:</div>${options("ge2",["120 cm³","360 cm³","46 cm³","108 cm³"])}</div>
+ <div class="activity"><div class="q">3. Un cilindro tiene r=3 cm y h=5 cm. Usando π≈3,14, su volumen aproximado es:</div>${options("ge3",["47,1 cm³","94,2 cm³","141,3 cm³","282,6 cm³"])}</div>
+ <div class="activity"><div class="q">4. Explica por qué el resultado de un volumen se expresa en unidades cúbicas.</div><div class="field"><input id="ge4" placeholder="Escribe tu explicación"></div></div>
+ <div class="activity"><div class="q">5. Una figura compuesta puede resolverse:</div>${options("ge5",["Descomponiéndola en figuras conocidas.","Aplicando siempre V=a³.","Sumando todas las longitudes sin analizar.","Usando cm² aunque se pida volumen."])}</div>
+ <button class="btn danger" onclick="submitActivity('eval')">ENVIAR EVALUACIÓN DEFINITIVA DE GEOMETRÍA</button>`;
+ return `
+ <div class="activity"><div class="q">1. Una institución tiene 240 estudiantes y encuesta a 60 seleccionados. ¿Cuál es la población?</div>${options("se1",["240 estudiantes.","60 estudiantes.","La variable.","La frecuencia."])}</div>
+ <div class="activity"><div class="q">2. ¿Cuál es una variable cuantitativa?</div>${options("se2",["Número de hermanos.","Color preferido.","Medio de transporte.","Tipo de música."])}</div>
+ <div class="activity"><div class="q">3. Datos: 4, 5, 5, 6, 10. Media, mediana y moda:</div>${options("se3",["6, 5, 5","5, 6, 5","6, 6, 5","5, 5, 6"])}</div>
+ <div class="activity"><div class="q">4. Datos: 3, 7, 8, 10. ¿Cuál es la mediana?</div>${options("se4",["7","7,5","8","28"])}</div>
+ <div class="activity"><div class="q">5. Explica por qué un valor extremo puede afectar la media más que la mediana.</div><div class="field"><input id="se5" placeholder="Escribe tu explicación"></div></div>
+ <button class="btn danger" onclick="submitActivity('eval')">ENVIAR EVALUACIÓN DEFINITIVA DE ESTADÍSTICA</button>`;
+}
+function submitActivity(k){
+ if(!confirm("¿Confirmas el envío definitivo? Después de enviarlo no podrás modificar este intento."))return;
+ state[area][k]=true;
+ let p=Math.min(100,Number(localStorage.getItem("gl7_progress")||0)+10);
+ localStorage.setItem("gl7_progress",p);
+ update(); renderSubjectActivity();
+ alert("Enviado y cerrado. El intento de esta asignatura quedó bloqueado.");
+}
+function update(){
+ let p=Number(localStorage.getItem("gl7_progress")||0);
+ document.getElementById("progress").textContent=p+"%";
+ document.getElementById("progressbar").style.width=p+"%";
+ document.getElementById("xp").textContent=p*5;
+}
+const students=[
+["Estudiante 1","7-1",82,91,76,83,"Volumen"],
+["Estudiante 2","7-1",64,58,72,65,"Proporcionalidad"],
+["Estudiante 3","7-2",88,79,90,86,"Interpretación"],
+["Estudiante 4","7-2",55,67,61,61,"Expresiones"],
+["Estudiante 5","7-3",74,85,81,80,"Argumentación"]
+];
+function renderTeacher(f){
+ let a=f==="Todos"?students:students.filter(x=>x[1]===f);
+ document.getElementById("ts").textContent=a.length;
+ document.getElementById("tp").textContent=Math.round(a.reduce((s,x)=>s+x[5],0)/Math.max(a.length,1))+"%";
+ document.getElementById("ta").textContent=a.length*4;
+ document.getElementById("tc").textContent=a.length;
+ document.getElementById("tt").innerHTML=a.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}%</td><td>${x[3]}%</td><td>${x[4]}%</td><td><b>${x[5]}%</b></td><td><span class="tag">${x[6]}</span></td></tr>`).join("");
+}
 </script>
 </body>
 </html>
