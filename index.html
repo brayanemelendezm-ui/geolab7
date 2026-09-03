@@ -91,10 +91,79 @@ let appDb,auth,db,currentUser,profile={};
 if(ready){const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);onAuthStateChanged(auth,loadUser)}
 else{document.getElementById("authMsg").innerHTML='<div class="msg">⚠️ Falta conectar Firebase. Abre la guía de configuración incluida con este proyecto.</div>'}
 
-window.authMode=m=>{loginForm.classList.toggle("hidden",m!=="login");regForm.classList.toggle("hidden",m!=="register");loginTab.classList.toggle("on",m==="login");regTab.classList.toggle("on",m==="register");authMsg.innerHTML=""}
-window.login=async e=>{e.preventDefault();if(!ready)return;try{await signInWithEmailAndPassword(auth,email.value,password.value)}catch(err){authMsg.innerHTML='<div class="msg error">No se pudo iniciar sesión. Verifica correo y contraseña.</div>'}}
-window.register=async e=>{e.preventDefault();if(!ready)return;try{const cred=await createUserWithEmailAndPassword(auth,regEmail.value,regPassword.value);await updateProfile(cred.user,{displayName:name.value});await setDoc(doc(db,"users",cred.user.uid),{name:name.value,email:regEmail.value,course:course.value,role:"student",xp:0,progress:0,bestChallenge:0,lessonDone:false,practiceDone:false,challengeDone:false,createdAt:serverTimestamp()});}catch(err){authMsg.innerHTML='<div class="msg error">No se pudo crear la cuenta. El correo puede estar registrado o la contraseña no cumplir los requisitos.</div>'}}
-async function loadUser(u){if(!u)return;currentUser=u;const snap=await getDoc(doc(db,"users",u.uid));profile=snap.exists()?snap.data():{name:u.displayName||"Estudiante",course:"",role:"student",xp:0,progress:0,bestChallenge:0};auth.style.display="none";app.style.display="flex";userName.textContent=profile.name||u.displayName||"Estudiante";userCourse.textContent=profile.course||"";teacherNav.classList.toggle("hidden",profile.role!=="teacher");render();if(profile.role==="teacher")loadStudents()}
+const $ = id => document.getElementById(id);
+window.authMode=m=>{$("loginForm").classList.toggle("hidden",m!=="login");$("regForm").classList.toggle("hidden",m!=="register");$("loginTab").classList.toggle("on",m==="login");$("regTab").classList.toggle("on",m==="register");$("authMsg").innerHTML=""}
+
+window.login=async e=>{
+  e.preventDefault();
+  if(!ready)return;
+  const emailValue=$("email").value.trim();
+  const passwordValue=$("password").value;
+  const button=e.submitter;
+  button.disabled=true;
+  button.textContent="Conectando...";
+  $("authMsg").innerHTML="";
+  try{
+    await signInWithEmailAndPassword(auth,emailValue,passwordValue);
+  }catch(err){
+    console.error("Firebase login error:",err);
+    const code=err?.code||"";
+    let msg="No se pudo iniciar sesión.";
+    if(code==="auth/invalid-credential"||code==="auth/wrong-password"||code==="auth/user-not-found") msg="Correo o contraseña incorrectos.";
+    else if(code==="auth/too-many-requests") msg="Demasiados intentos. Espera unos minutos y vuelve a intentarlo.";
+    else if(code==="auth/network-request-failed") msg="No hay conexión con Firebase. Revisa tu internet.";
+    else msg+=` Código: ${code||"desconocido"}.`;
+    $("authMsg").innerHTML=`<div class="msg error">${msg}</div>`;
+    button.disabled=false;
+    button.textContent="Entrar a GeoLab";
+  }
+}
+
+window.register=async e=>{
+  e.preventDefault();
+  if(!ready)return;
+  const button=e.submitter;
+  button.disabled=true;
+  button.textContent="Creando...";
+  $("authMsg").innerHTML="";
+  try{
+    const cred=await createUserWithEmailAndPassword(auth,$("regEmail").value.trim(),$("regPassword").value);
+    await updateProfile(cred.user,{displayName:$("name").value.trim()});
+    await setDoc(doc(db,"users",cred.user.uid),{
+      name:$("name").value.trim(),email:$("regEmail").value.trim(),course:$("course").value,role:"student",
+      xp:0,progress:0,bestChallenge:0,lessonDone:false,practiceDone:false,challengeDone:false,createdAt:serverTimestamp()
+    });
+  }catch(err){
+    console.error("Firebase register error:",err);
+    $("authMsg").innerHTML=`<div class="msg error">No se pudo crear la cuenta. Código: ${err?.code||"desconocido"}.</div>`;
+    button.disabled=false;
+    button.textContent="Crear cuenta de estudiante";
+  }
+}
+
+async function loadUser(u){
+  if(!u)return;
+  currentUser=u;
+  try{
+    const snap=await getDoc(doc(db,"users",u.uid));
+    profile=snap.exists()?snap.data():{
+      name:u.displayName||"Estudiante",course:"",role:"student",xp:0,progress:0,bestChallenge:0
+    };
+    $("auth").style.display="none";
+    $("app").style.display="flex";
+    $("userName").textContent=profile.name||u.displayName||"Estudiante";
+    $("userCourse").textContent=profile.course||"";
+    $("teacherNav").classList.toggle("hidden",profile.role!=="teacher");
+    render();
+    if(profile.role==="teacher") await loadStudents();
+  }catch(err){
+    console.error("Firestore profile error:",err);
+    await signOut(auth);
+    $("auth").style.display="";
+    $("app").style.display="none";
+    $("authMsg").innerHTML=`<div class="msg error">La cuenta se autenticó, pero no se pudo leer su perfil en Firestore. Código: ${err?.code||"desconocido"}. Revisa las reglas de Firestore.</div>`;
+  }
+}
 async function save(data){profile={...profile,...data};await setDoc(doc(db,"users",currentUser.uid),profile,{merge:true});render()}
 function render(){const x=profile.xp||0,p=Math.min(100,profile.progress||0);xp.textContent=x;progress.textContent=p+"%";progressBar.style.width=p+"%";best.textContent=profile.bestChallenge?profile.bestChallenge+"/4":"—";level.textContent=x>=400?"Maestro":x>=250?"Experto":x>=100?"Constructor":"Explorador"}
 window.logout=()=>signOut(auth)
